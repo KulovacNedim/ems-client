@@ -1,0 +1,14 @@
+form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 'auto';
+    padding: 30px 15px 30px 15px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+button {
+    width: 100%;
+}

@@ -1,0 +1,39 @@
+<mat-grid-list cols="5" rowHeight="100%">
+    <mat-grid-tile colspan="2"></mat-grid-tile>
+    <mat-grid-tile colspan="3">
+        <mat-card>
+            <mat-card-content>
+                <form>
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput [formControl]="emailFormControl" >
+                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            Please enter a valid email address
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">
+                            Email is <strong>required</strong>
+                        </mat-error>
+                        <mat-icon matSuffix>{{!emailFormControl.hasError('email') && !emailFormControl.hasError('required') ? 'mark_email_read' : 'email'}}</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input matInput [formControl]="passwordFormControl"
+                            [type]="hide ? 'password' : 'text'">
+                        <mat-error
+                            *ngIf="passwordFormControl.hasError('minlength')">
+                            Password has to contain at least 8 characters
+                        </mat-error>
+                        <mat-error *ngIf="passwordFormControl.hasError('required')">
+                            Password is <strong>required</strong>
+                        </mat-error>
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon style="font-size: 22px">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary">Primary</button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

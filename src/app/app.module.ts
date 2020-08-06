@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppMaterialModule } from './app-material/app-material.module';
 
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
@@ -19,11 +21,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { AuthGuard } from './auth/auth.guard';
+import { AuthService } from './auth/auth.service';
+
 const routes: Routes = [
   { path: '', redirectTo: '/sign-up', pathMatch: 'full' },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -37,8 +42,9 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
-    FormsModule,
     ReactiveFormsModule,
+    AppMaterialModule,
+
     MatCardModule,
     MatFormFieldModule,
     MatToolbarModule,
@@ -48,7 +54,7 @@ const routes: Routes = [
     MatGridListModule,
     MatMenuModule
   ],
-  providers: [],
+  providers: [ AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

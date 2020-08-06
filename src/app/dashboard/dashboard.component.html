@@ -1,1 +1,7 @@
 <p>dashboard works!</p>
+<p>Yay! You are logged in!</p>
+
+<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async as isLoggedIn">
+    <!-- more HTML template code -->
+    <button mat-button (click)="onLogout()" *ngIf="isLoggedIn">Logout</button>
+  </mat-toolbar>

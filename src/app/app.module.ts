@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMaterialModule } from './app-material/app-material.module';
 
 import { SignUpComponent } from './user/sign-up/sign-up.component';
-import { SignInComponent } from './user/sign-in/sign-in.component';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { MatCardModule } from '@angular/material/card';
@@ -23,12 +23,16 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
+import { StartupComponent } from './auth/startup/startup.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/sign-up', pathMatch: 'full' },
+  { path: '', component: StartupComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+  { path: 'dashboard', component: DashboardComponent, 
+  // canActivate: [AuthGuard] 
+}
 ];
 
 @NgModule({
@@ -36,7 +40,8 @@ const routes: Routes = [
     AppComponent,
     SignUpComponent,
     SignInComponent,
-    DashboardComponent
+    DashboardComponent,
+    StartupComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +49,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     AppMaterialModule,
+    HttpClientModule,
 
     MatCardModule,
     MatFormFieldModule,

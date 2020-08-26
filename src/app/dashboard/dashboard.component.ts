@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
+    // this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
   }
 
   onLogout(){

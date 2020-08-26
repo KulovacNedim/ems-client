@@ -1,0 +1,26 @@
+<div class="signin-content">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="userEmails" (ngSubmit)="onSubmit()">
+        <p>Please login to continue</p>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="email" formControlName="email" required autocomplete="email">
+          <mat-error *ngIf="(emailField.invalid && emailField.touched) || emailField.dirty">
+            <small *ngIf="emailField.errors?.required" class="text-danger">Primary email is required</small>
+            <!--question mark(?) is a safe navigation operator-->
+            <small *ngIf="emailField.errors?.pattern" class="text-danger">Please provide a valid email address</small>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput type="password" placeholder="Password" formControlName="password" required>
+          <mat-error *ngIf="(passwordField.invalid && passwordField.touched) || passwordField.dirty">
+            <small *ngIf="passwordField.errors?.required" class="text-danger">Secondary email is required</small>
+            <small *ngIf="passwordField.errors?.minlength" class="text-danger">Password has to contain at least
+              {{minPasswordLength}} characters</small>
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!userEmails.valid">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

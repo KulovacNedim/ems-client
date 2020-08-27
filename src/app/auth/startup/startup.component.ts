@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { retry } from 'rxjs/operators';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-startup',
@@ -10,15 +9,14 @@ import { retry } from 'rxjs/operators';
 })
 export class StartupComponent implements OnInit {
   loading = true;
+  color: ThemePalette = 'warn';
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    const response = this.auth.authenticatedUser()
+    const response = this.authService.authenticatedUser()
     if (response) {
-        response.subscribe((user: any) => {
-        // if no user, display error msg
-      });
+      response.subscribe();
     }
   }
 

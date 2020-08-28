@@ -1,3 +1,50 @@
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+            <p>Please fill out the form to register</p>
+            <mat-form-field class="full-width-input">
+                <input matInput placeholder="email" formControlName="email" required autocomplete="email">
+                <mat-icon matSuffix>
+                    {{!f.email.errors?.email && !f.email.errors?.required ? 'mark_email_read' : 'email'}}</mat-icon>
+                <mat-error *ngIf="(f.email.invalid && f.email.touched) || f.email.dirty">
+                    <small *ngIf="f.email.errors?.required" class="text-danger">Primary email is required</small>
+                    <!--question mark(?) is a safe navigation operator-->
+                    <small *ngIf="f.email.errors?.pattern" class="text-danger">Please provide a valid email
+                        address</small>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password"
+                    formControlName="password" required>
+                <mat-icon matSuffix (click)="hidePassword = !hidePassword" class="btn">
+                    {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="(f.password.invalid && f.password.touched) || f.password.dirty">
+                    <!-- <small *ngIf="passwordField.errors?.required" class="text-danger">Secondary email is -->
+                    <small *ngIf="f.password.errors?.required" class="text-danger">Secondary email is
+                        required</small>
+                    <small *ngIf="f.password.errors?.minlength" class="text-danger">Password has to contain at least
+                        {{minPasswordLength}} characters</small>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Confirm Password" formControlName="confirmPassword"
+                    required>
+                <mat-icon matSuffix>
+                    {{!f.confirmPassword.invalid ? 'check_circle' : 'error'}}</mat-icon>
+                <mat-error *ngIf="f.confirmPassword.invalid">
+                    <!-- <small *ngIf="form.controls['confirmPassword'].hasError('NoPasswordMatch')" -->
+                    <small *ngIf="f.confirmPassword.errors?.NoPasswordMatch" class="text-danger"><br>Password does not
+                        match first one</small>
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" [disabled]="!signUpForm.valid">Register</button>
+            <a routerLink="/sign-in" style="text-decoration: none;">
+                <h2 class="mat-small">Already have account? Login!</h2>
+            </a>
+        </form>
+    </mat-card-content>
+</mat-card>
+
 <!-- <mat-grid-list cols="5" rowHeight="100%">
     <mat-grid-tile colspan="2"></mat-grid-tile>
     <mat-grid-tile colspan="3">

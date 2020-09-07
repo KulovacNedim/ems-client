@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { AuthService } from './../../auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -8,35 +8,50 @@ import { Router } from '@angular/router';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
+  signInForm: FormGroup;
+  minPasswordLength = 8;
+  hidePassword = true;
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+    this.signInForm = this.createSignupForm();
+  }
 
-  minPasswordLength = 8;
-  userEmails = new FormGroup({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
-    password: new FormControl('', [
-      Validators.minLength(this.minPasswordLength),
-      Validators.required
-    ])
-  });
-
-  get emailField() {
-    return this.userEmails.get('email');
+  createSignupForm(): FormGroup {
+    return this.fb.group(
+      {
+        email: [
+          null,
+          Validators.compose([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])
+        ],
+        password: [
+          null,
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(this.minPasswordLength),
+          ])
+        ]
+      },
+    );
   };
 
-  get passwordField() {
-    return this.userEmails.get('password');
+  get f() { return this.signInForm.controls; }
+
+  ngOnInit(): void {
+    this.authService.isAuthentcated.subscribe(isAuth => {
+      // guard compnent from already logged in users
+      if (isAuth) this.router.navigateByUrl('/dashboard');
+      if (!isAuth && localStorage.getItem("token")) this.router.navigate(['/']);
+    })
   };
 
   onSubmit() {
-    if (this.userEmails.valid) {
-      this.authService.login(this.userEmails.value)
+    if (this.signInForm.valid) {
+      this.authService.login(this.signInForm.value)
         .subscribe()
     }
   };

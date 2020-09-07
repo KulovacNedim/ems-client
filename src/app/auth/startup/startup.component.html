@@ -1,2 +1,11 @@
-<p>startup works!</p>
-<p *ngIf="loading">LOADING....</p>
+<mat-grid-list cols="1" rowHeight="20%">
+    <mat-grid-tile colspan="1"></mat-grid-tile>
+    <mat-grid-tile colspan="1">
+        <h2 class="mat-h2">Trying to autologin</h2>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+        <mat-progress-bar mode="indeterminate" [color]="color" style="width: 80%"></mat-progress-bar>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1"></mat-grid-tile>
+    <mat-grid-tile colspan="1"></mat-grid-tile>
+</mat-grid-list>

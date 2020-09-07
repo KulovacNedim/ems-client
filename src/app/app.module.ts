@@ -8,9 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppMaterialModule } from './app-material/app-material.module';
 
-import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
+import {
+  RecaptchaModule, RecaptchaFormsModule, RECAPTCHA_SETTINGS, RecaptchaSettings,
+  RECAPTCHA_LANGUAGE
+} from 'ng-recaptcha';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,14 +30,13 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { StartupComponent } from './auth/startup/startup.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const routes: Routes = [
   { path: '', component: StartupComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'dashboard', component: DashboardComponent, 
-  // canActivate: [AuthGuard] 
-}
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -50,6 +54,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     AppMaterialModule,
     HttpClientModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
 
     MatCardModule,
     MatFormFieldModule,
@@ -58,9 +64,21 @@ const routes: Routes = [
     MatInputModule,
     MatIconModule,
     MatGridListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressBarModule
   ],
-  providers: [ AuthService, AuthGuard],
+  providers: [AuthService,
+    AuthGuard,
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: { siteKey: '6Lcvn8cZAAAAAJfOWmk4M1trV-MH56grl5iaE635', size: 'invisible' } as RecaptchaSettings,
+    },
+    {
+      provide: RECAPTCHA_LANGUAGE,
+      useValue: 'hr',              // extraxt to variable
+
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

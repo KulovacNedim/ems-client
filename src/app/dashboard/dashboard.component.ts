@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './../auth/auth.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -9,16 +9,16 @@ import { AuthService } from './../auth/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-  isLoggedIn$: Observable<boolean>;                  // {1}
+  isAuthentcated$: Observable<boolean>;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    // this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
+    this.isAuthentcated$ = this.authService.isAuthentcated;
   }
 
   onLogout(){
-    this.authService.logout();                      // {3}
+    this.authService.logout();
   }
 
 }

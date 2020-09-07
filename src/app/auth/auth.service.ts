@@ -24,7 +24,7 @@ export class AuthService {
       this.router.navigate(['/sign-in']);
       return;
     }
-    return this.http.get('http://localhost:8080/api/auth/users/me', {
+    return this.http.get('http://localhost:8080/api/auth/me', {
       headers: { Authorization: `Bearer ${this.getToken()}` }
     })
       .pipe(
@@ -52,6 +52,17 @@ export class AuthService {
           this.authentcated.next(true);
           if (data.status === 200) this.router.navigate(['/dashboard']);
           return data.status;
+        })
+      );
+  }
+
+  signUp(user: User): Observable<any> {
+    console.log(user)
+    return this.http.post('http://localhost:8080/api/auth/signup', user, { observe: 'response' })
+      .pipe(
+        map((data: any) => {
+          if (data.status === 200) this.router.navigate(['/sign-in']);
+          return data;
         })
       );
   }

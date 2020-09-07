@@ -12,6 +12,8 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -49,6 +51,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     AppMaterialModule,
     HttpClientModule,
+    // NgxCaptchaModule,
+    RecaptchaModule,  //this is the recaptcha main module
+    RecaptchaFormsModule, //this is the module for form incase form validation
 
     MatCardModule,
     MatFormFieldModule,

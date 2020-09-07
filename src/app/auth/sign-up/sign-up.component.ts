@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { CustomValidators } from '../../custom-validators';
+import { User } from '../user';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,6 +13,11 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   minPasswordLength = 8;
   hidePassword = true;
+
+  @ViewChild('captchaRef') captchaRef: any;
+
+  // captchaError: boolean = false;
+  // siteKey: string;
 
   constructor(
     private authService: AuthService,
@@ -46,14 +52,31 @@ export class SignUpComponent implements OnInit {
 
   get f() { return this.signUpForm.controls; }
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.siteKey='6LcJrMcZAAAAAEzNRHOeKoYeKdO_bsRFXQgFrP7g'
+  }
 
-  KL = () => console.log("DSDSDS")
+  resolved(captchaResponse: string) {
+    console.log(`Resolved response token: ${captchaResponse}`);
+   
+  }
 
-  onSubmit() {
+  onSubmit(captchaResponse: string) {
+    console.log(`Resolved response token: ${captchaResponse}`);
+    console.log(this.captchaRef)
+    this.captchaRef.reset();
+
+
     if (this.signUpForm.valid) {
-      this.authService.login(this.signUpForm.value)
+      const user: User = {
+        email: this.f.email.value,
+        password: this.f.password.value,
+        reCaptchaToken: captchaResponse
+      }
+      this.authService.signUp(user)
         .subscribe()
+        // errorMsg if error
+        // this.captchaError = true;
     }
   };
 

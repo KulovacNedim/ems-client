@@ -34,11 +34,8 @@
                         match first one</small>
                 </mat-error>
             </mat-form-field>
-
-            <re-captcha #captchaRef="reCaptcha" (resolved)="$event && onSubmit($event)" size="invisible"
-                siteKey="6Lcvn8cZAAAAAJfOWmk4M1trV-MH56grl5iaE635">
+            <re-captcha #captchaRef="reCaptcha" (resolved)="$event && onSubmit($event)" formControlName="recaptcha">
             </re-captcha>
-
             <button (click)="captchaRef.execute()" mat-raised-button color="primary"
                 [disabled]="!signUpForm.valid">Register</button>
             <a routerLink="/sign-in" style="text-decoration: none;">

@@ -42,7 +42,10 @@ export class SignUpComponent implements OnInit {
         ],
         confirmPassword: [null, Validators.compose([
           Validators.minLength(this.minPasswordLength)
-        ])]
+        ])],
+        recaptcha: [
+          null, Validators.required
+        ]
       },
       {
         validator: CustomValidators.passwordMatchValidator
@@ -51,14 +54,14 @@ export class SignUpComponent implements OnInit {
   };
 
   get f() { return this.signUpForm.controls; }
-  
+
   ngOnInit(): void {
     // this.siteKey='6LcJrMcZAAAAAEzNRHOeKoYeKdO_bsRFXQgFrP7g'
   }
 
   resolved(captchaResponse: string) {
     console.log(`Resolved response token: ${captchaResponse}`);
-   
+
   }
 
   onSubmit(captchaResponse: string) {
@@ -75,8 +78,8 @@ export class SignUpComponent implements OnInit {
       }
       this.authService.signUp(user)
         .subscribe()
-        // errorMsg if error
-        // this.captchaError = true;
+      // errorMsg if error
+      // this.captchaError = true;
     }
   };
 

@@ -12,7 +12,10 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import {
+  RecaptchaModule, RecaptchaFormsModule, RECAPTCHA_SETTINGS, RecaptchaSettings,
+  RECAPTCHA_LANGUAGE
+} from 'ng-recaptcha';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -51,9 +54,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     AppMaterialModule,
     HttpClientModule,
-    // NgxCaptchaModule,
-    RecaptchaModule,  //this is the recaptcha main module
-    RecaptchaFormsModule, //this is the module for form incase form validation
+    RecaptchaModule,
+    RecaptchaFormsModule,
 
     MatCardModule,
     MatFormFieldModule,
@@ -65,7 +67,18 @@ const routes: Routes = [
     MatMenuModule,
     MatProgressBarModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService,
+    AuthGuard,
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: { siteKey: '6Lcvn8cZAAAAAJfOWmk4M1trV-MH56grl5iaE635', size: 'invisible' } as RecaptchaSettings,
+    },
+    {
+      provide: RECAPTCHA_LANGUAGE,
+      useValue: 'hr',              // extraxt to variable
+
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

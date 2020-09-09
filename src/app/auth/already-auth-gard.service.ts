@@ -3,7 +3,8 @@ import {
     ActivatedRouteSnapshot,
     RouterStateSnapshot,
     CanActivateChild,
-    Router
+    Router,
+    CanActivate
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -11,7 +12,7 @@ import { map, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class AlreadyAuthGuard implements CanActivateChild {
+export class AlreadyAuthGuard implements CanActivate, CanActivateChild {
     constructor(
         private authService: AuthService,
         private router: Router) {
@@ -43,5 +44,11 @@ export class AlreadyAuthGuard implements CanActivateChild {
                 return false;
             })
         )
+    }
+
+    canActivate(
+        next: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): Observable<boolean> {
+        return this.canActivateChild(next, state);
     }
 }

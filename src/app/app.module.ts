@@ -39,8 +39,10 @@ const routes: Routes = [
   { path: '', component: StartupComponent },
   {
     path: 'auth', component: AuthScreenComponent,
+    canActivate: [AlreadyAuthGuard],
     canActivateChild: [AlreadyAuthGuard],
     children: [
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       { path: 'sign-up', component: SignUpComponent },
       { path: 'sign-in', component: SignInComponent }
     ]

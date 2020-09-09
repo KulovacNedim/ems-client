@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { CustomValidators } from '../../custom-validators';
+import { AuthService } from '../../services/auth.service';
+import { CustomValidators } from '../../utils/custom-validators';
 
 @Component({
   selector: 'app-sign-up',
@@ -65,5 +65,4 @@ export class SignUpComponent {
     };
     this.captchaRef.reset();
   };
-
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from './../auth/auth.service';
+import { AuthService } from './../services/auth.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',

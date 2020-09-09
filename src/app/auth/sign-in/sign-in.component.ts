@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { AuthService } from './../../auth/auth.service';
+import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -47,11 +47,6 @@ export class SignInComponent implements OnInit {
   get f() { return this.signInForm.controls; }
 
   ngOnInit(): void {
-    // this.authService.isAuthentcated.subscribe(isAuth => {
-    //   // guard compnent from already logged in users
-    //   if (isAuth) this.router.navigateByUrl('/dashboard');
-    //   if (!isAuth && localStorage.getItem("token")) this.router.navigate(['/']);
-    // })
   };
 
   onSubmit() {

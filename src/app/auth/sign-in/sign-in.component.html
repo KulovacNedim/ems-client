@@ -26,7 +26,7 @@
       <re-captcha #captchaRef="reCaptcha" (resolved)="$event && onSubmit()" formControlName="reCaptchaToken">
       </re-captcha>
       <button (click)="captchaRef.execute()" mat-raised-button color="primary" [disabled]="!signInForm.valid">Login</button>
-      <a routerLink="/sign-up" style="text-decoration: none;">
+      <a routerLink="/auth/sign-up" style="text-decoration: none;">
         <h2 class="mat-small">Don't have account? Register!</h2>
       </a>
     </form>

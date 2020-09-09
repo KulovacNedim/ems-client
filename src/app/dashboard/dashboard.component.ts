@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  isAuthentcated$: Observable<boolean>;
+  // isAuthentcated$: Observable<boolean>;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.isAuthentcated$ = this.authService.isAuthentcated;
+    // this.isAuthentcated$ = this.authService.isAuthentcated;
   }
 
   onLogout(){

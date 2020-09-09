@@ -26,17 +26,31 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './auth/auth-guard.service';
+import { AlreadyAuthGuard } from './auth/already-auth-gard.service';
 import { AuthService } from './auth/auth.service';
 import { StartupComponent } from './auth/startup/startup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AuthScreenComponent } from './auth/auth-screen/auth-screen.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: StartupComponent },
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+  {
+    path: 'auth', component: AuthScreenComponent,
+    canActivateChild: [AlreadyAuthGuard],
+    children: [
+      { path: 'sign-up', component: SignUpComponent },
+      { path: 'sign-in', component: SignInComponent }
+    ]
+  },
+  { path: 'not-found', component: NotFoundComponent },
+  {
+    path: 'dashboard', component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '**', redirectTo: 'not-found' }
 ];
 
 @NgModule({
@@ -45,7 +59,9 @@ const routes: Routes = [
     SignUpComponent,
     SignInComponent,
     DashboardComponent,
-    StartupComponent
+    StartupComponent,
+    AuthScreenComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -69,13 +85,14 @@ const routes: Routes = [
   ],
   providers: [AuthService,
     AuthGuard,
+    AlreadyAuthGuard,
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: { siteKey: '6Lcvn8cZAAAAAJfOWmk4M1trV-MH56grl5iaE635', size: 'invisible' } as RecaptchaSettings,
     },
     {
       provide: RECAPTCHA_LANGUAGE,
-      useValue: 'hr',              // extraxt to variable
+      useValue: 'hr',
 
     },
   ],

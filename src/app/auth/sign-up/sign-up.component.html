@@ -34,7 +34,7 @@
                         match first one</small>
                 </mat-error>
             </mat-form-field>
-            <re-captcha #captchaRef="reCaptcha" (resolved)="$event && onSubmit($event)" formControlName="recaptcha">
+            <re-captcha #captchaRef="reCaptcha" (resolved)="$event && onSubmit()" formControlName="reCaptchaToken">
             </re-captcha>
             <button (click)="captchaRef.execute()" mat-raised-button color="primary"
                 [disabled]="!signUpForm.valid">Register</button>

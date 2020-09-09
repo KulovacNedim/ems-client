@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
-import { AuthService } from './../../auth/auth.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,6 +12,8 @@ export class SignInComponent implements OnInit {
   signInForm: FormGroup;
   minPasswordLength = 8;
   hidePassword = true;
+
+  @ViewChild('captchaRef') captchaRef: any;
 
   constructor(
     private authService: AuthService,
@@ -34,6 +36,9 @@ export class SignInComponent implements OnInit {
             Validators.required,
             Validators.minLength(this.minPasswordLength),
           ])
+        ],
+        reCaptchaToken: [
+          null
         ]
       },
     );
@@ -42,18 +47,17 @@ export class SignInComponent implements OnInit {
   get f() { return this.signInForm.controls; }
 
   ngOnInit(): void {
-    this.authService.isAuthentcated.subscribe(isAuth => {
-      // guard compnent from already logged in users
-      if (isAuth) this.router.navigateByUrl('/dashboard');
-      if (!isAuth && localStorage.getItem("token")) this.router.navigate(['/']);
-    })
   };
 
   onSubmit() {
     if (this.signInForm.valid) {
+      console.log(this.signInForm.value)
       this.authService.login(this.signInForm.value)
-        .subscribe()
+        .subscribe(status => {
+          if (status === 200) this.router.navigate(['/dashboard']);
+        })
     }
+    this.captchaRef.reset();
   };
 
 }

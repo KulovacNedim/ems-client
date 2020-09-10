@@ -12,6 +12,8 @@ export class SignInComponent implements OnInit {
   signInForm: FormGroup;
   minPasswordLength = 8;
   hidePassword = true;
+  error: string = null;
+
 
   @ViewChild('captchaRef') captchaRef: any;
 
@@ -51,11 +53,13 @@ export class SignInComponent implements OnInit {
 
   onSubmit() {
     if (this.signInForm.valid) {
-      console.log(this.signInForm.value)
-      this.authService.login(this.signInForm.value)
-        .subscribe(status => {
-          if (status === 200) this.router.navigate(['/dashboard']);
-        })
+      this.authService.signIn(this.signInForm.value)
+        .subscribe(
+          () => this.router.navigate(['/dashboard']),
+          err => {
+            if (err.status === 401) this.error = "Wrong credentials. Please try again.";
+            else this.error = "Server encountered an error. Please try again later.";
+          })
     }
     this.captchaRef.reset();
   };

@@ -17,6 +17,7 @@ export class AuthService {
   }
 
   constructor(private router: Router, private http: HttpClient) { }
+  
   autoLogin() {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -39,77 +40,20 @@ export class AuthService {
       }))
   }
 
-
-
-  authenticatedUser() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      this.router.navigate(['/auth/sign-in']);
-      return;
-    }
-    return this.http.get('http://localhost:8080/api/auth/me', {
-      headers: { Authorization: `Bearer ${this.getToken()}` }
-    })
-      .pipe(
-        map((data: any) => {
-          // if data store it in ngrx
-          if (data) {
-            this.authentcated.next(true);
-            this.authUser.next(data);
-          }
-          if (data.id) this.router.navigate(['/dashboard']);
-          return data;
-        }),
-        catchError((err) => {
-          return this.router.navigate(['/auth/sign-in']);
-        })
-      );
-  }
-  authenticatedUser1() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      // this.router.navigate(['/auth/sign-in']);
-      return of('');
-    }
-    return this.http.get('http://localhost:8080/api/auth/me', {
-      headers: { Authorization: `Bearer ${this.getToken()}` }
-    })
-      .pipe(
-        map((data: any) => {
-          // if data store it in ngrx
-          if (data) {
-            this.authentcated.next(true);
-            this.authUser.next(data);
-          }
-          return data;
-        }),
-        // catchError((err) => {
-        //   // return this.router.navigate(['/auth/sign-in']);
-        // })
-      );
-  }
-
-  login(user: User): Observable<any> {
+  signIn(user: User): Observable<any> {
     return this.http.post('http://localhost:8080/api/auth/login', JSON.stringify(user), { observe: 'response' })
       .pipe(
         map((data: any) => {
-          const token = data.headers.get('Authorization'); console.log(data.headers)
+          const token = data.headers.get('Authorization'); 
           if (token) this.saveToken(token);
           this.authentcated.next(true);
-          return data.status;
+          return data;
         })
       );
   }
 
   signUp(user: User): Observable<any> {
-    console.log(user)
-    return this.http.post('http://localhost:8080/api/auth/signup', user, { observe: 'response' })
-      .pipe(
-        map((data: any) => {
-          if (data.status === 200) this.router.navigate(['/sign-in']);
-          return data;
-        })
-      );
+    return this.http.post('http://localhost:8080/api/auth/signup', user, { observe: 'response' });
   }
 
   logout() {
@@ -125,11 +69,5 @@ export class AuthService {
   public getToken(): string {
     // if (! inStore) {
     return localStorage.getItem('token');
-    // }
-    // return this.token
-  }
-
-  private handleError(err) {
-    return throwError(err);
   }
 }

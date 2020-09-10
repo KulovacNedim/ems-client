@@ -12,6 +12,8 @@ export class SignUpComponent {
   signUpForm: FormGroup;
   minPasswordLength = 8;
   hidePassword = true;
+  successMsg: string = null;
+  error: string = null;
 
   @ViewChild('captchaRef') captchaRef: any;
 
@@ -51,17 +53,16 @@ export class SignUpComponent {
 
   get f() { return this.signUpForm.controls; }
 
-  resolved(captchaResponse: string) {
-    console.log(`Resolved response token: ${captchaResponse}`);
-
-  }
-
   onSubmit() {
     if (this.signUpForm.valid) {
       this.authService.signUp(this.signUpForm.value)
-        .subscribe()
-      // errorMsg if error
-      // this.captchaError = true;
+        .subscribe(
+          () => this.successMsg = "We sent you an email. Pleas log into your email and confirm registration.",
+          err => {
+            if (err.status === 409) this.error = err.error.errors;
+            else this.error = "Server encountered an error. Please try again later.";
+          }
+        );
     };
     this.captchaRef.reset();
   };

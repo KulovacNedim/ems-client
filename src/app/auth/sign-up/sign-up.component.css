@@ -4,10 +4,19 @@ mat-card {
     text-align: center;
 }
 
+.err {
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
 .full-width-input {
     width: 100%;
 }
 
 .btn {
     cursor: pointer;
+}
+
+.mat-body-strong {
+    color: mediumseagreen;
 }

@@ -36,6 +36,8 @@
             </mat-form-field>
             <re-captcha #captchaRef="reCaptcha" (resolved)="$event && onSubmit()" formControlName="reCaptchaToken">
             </re-captcha>
+            <mat-error *ngIf="error" class="err">{{error}}</mat-error>
+            <h2 class="mat-body-strong" *ngIf="successMsg">{{successMsg}}</h2>
             <button (click)="captchaRef.execute()" mat-raised-button color="primary"
                 [disabled]="!signUpForm.valid">Register</button>
             <a routerLink="/auth/sign-in" style="text-decoration: none;">

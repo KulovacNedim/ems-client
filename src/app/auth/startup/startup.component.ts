@@ -15,18 +15,11 @@ export class StartupComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    const response = this.authService.autoLogin(); 
+    const response = this.authService.autoLogin();
     if (response) {
-      response.subscribe(
-      (user) => {
+      response.subscribe(() => {
         this.router.navigate(["/dashboard"]);
-      },
-      (err) => {
-        localStorage.removeItem("token");
-        //notify user that autulogin failed an ask for new login
-        this.router.navigate(["/auth/sign-in"]);
-      }
-      );
+      });
     }
   }
 

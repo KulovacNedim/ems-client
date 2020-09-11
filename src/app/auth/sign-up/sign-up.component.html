@@ -7,7 +7,7 @@
                 <mat-icon matSuffix>
                     {{!f.email.errors?.email && !f.email.errors?.required ? 'mark_email_read' : 'email'}}</mat-icon>
                 <mat-error *ngIf="(f.email.invalid && f.email.touched) || f.email.dirty">
-                    <small *ngIf="f.email.errors?.required" class="text-danger">Primary email is required</small>
+                    <small *ngIf="f.email.errors?.required" class="text-danger">email address is required</small>
                     <small *ngIf="f.email.errors?.pattern" class="text-danger">Please provide a valid email
                         address</small>
                 </mat-error>
@@ -18,10 +18,15 @@
                 <mat-icon matSuffix (click)="hidePassword = !hidePassword" class="btn">
                     {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                 <mat-error *ngIf="(f.password.invalid && f.password.touched) || f.password.dirty">
-                    <small *ngIf="f.password.errors?.required" class="text-danger">Secondary email is
+                    <small *ngIf="f.password.errors?.required" class="text-danger">Password is
                         required</small>
-                    <small *ngIf="f.password.errors?.minlength" class="text-danger">Password has to contain at least
-                        {{minPasswordLength}} characters</small>
+                    <small *ngIf="f.password.errors?.minlength" class="text-danger">Password must contain at least
+                        {{minPasswordLength}} characters<br></small>
+                    <small *ngIf="f.password.errors?.hasNumber" class="text-danger">
+                        Password must contain at least 1 number<br></small>
+                    <small *ngIf="f.password.errors?.hasLetter" class="text-danger">
+                        Password must contain at least 1 letter
+                    </small>
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width-input">

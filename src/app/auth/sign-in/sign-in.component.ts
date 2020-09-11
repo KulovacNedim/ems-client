@@ -14,7 +14,6 @@ export class SignInComponent implements OnInit {
   hidePassword = true;
   error: string = null;
 
-
   @ViewChild('captchaRef') captchaRef: any;
 
   constructor(
@@ -57,11 +56,12 @@ export class SignInComponent implements OnInit {
         .subscribe(
           () => this.router.navigate(['/dashboard']),
           err => {
-            if (err.status === 401) this.error = "Wrong credentials. Please try again.";
+            if (err.status === 400) this.error = err.error.message;
+            else if (err.status === 401) this.error = "Wrong credentials. Please try again.";
             else this.error = "Server encountered an error. Please try again later.";
-          })
+          });
+      this.captchaRef.reset();
     }
-    this.captchaRef.reset();
   };
 
 }

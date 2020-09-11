@@ -36,6 +36,12 @@ export class SignUpComponent {
           Validators.compose([
             Validators.required,
             Validators.minLength(this.minPasswordLength),
+            CustomValidators.patternValidator(/\d/, {
+              hasNumber: true
+            }),
+            CustomValidators.patternValidator(/[a-zA-Z]/, {
+              hasLetter: true
+            })
           ])
         ],
         confirmPassword: [null, Validators.compose([

@@ -1,18 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
   signInForm: FormGroup;
   minPasswordLength = 8;
   hidePassword = true;
   error: string = null;
+  errorMsg: Subscription;
 
   @ViewChild('captchaRef') captchaRef: any;
 
@@ -48,7 +50,12 @@ export class SignInComponent implements OnInit {
   get f() { return this.signInForm.controls; }
 
   ngOnInit(): void {
+    this.errorMsg = this.authService.errMsg.subscribe(errMsg => this.error = errMsg);
   };
+
+  ngOnDestroy(): void {
+    this.errorMsg.unsubscribe();
+  }
 
   onSubmit() {
     if (this.signInForm.valid) {

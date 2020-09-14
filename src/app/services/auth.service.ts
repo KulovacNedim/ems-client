@@ -12,6 +12,8 @@ import { catchError } from 'rxjs/operators';
 export class AuthService {
   private authentcated = new BehaviorSubject<boolean>(false);
   private authUser = new BehaviorSubject<any>(null);
+  errMsg = new BehaviorSubject<string>(null);
+
   get isAuthentcated() {
     return this.authentcated.asObservable();
   }
@@ -38,11 +40,11 @@ export class AuthService {
           return user;
         }),
         catchError((error: HttpErrorResponse) => {
-          //set notification for new login
-          this.removeToken()
+          this.errMsg.next("Login session expired. Please sign in your account.");
+          this.removeToken();
           this.router.navigate(["/auth/sign-in"]);
           return throwError(error);
-      }))
+        }))
   }
 
   signIn(user: User): Observable<any> {

@@ -61,7 +61,7 @@ export class SignUpComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      this.authService.signUp(this.signUpForm.value)
+      const req = this.authService.signUp(this.signUpForm.value)
         .subscribe(
           () => this.successMsg = "We sent you an email. Pleas log into your email and confirm registration.",
           err => {
@@ -69,7 +69,7 @@ export class SignUpComponent {
             else this.error = "Server encountered an error. Please try again later.";
           }
         );
+        this.captchaRef.reset();
     };
-    this.captchaRef.reset();
   };
 }

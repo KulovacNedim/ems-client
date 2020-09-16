@@ -16,3 +16,7 @@ mat-card {
 .btn {
     cursor: pointer;
 }
+
+.mat-body-strong {
+    color: mediumseagreen;
+}

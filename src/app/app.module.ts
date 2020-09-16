@@ -24,6 +24,7 @@ import {
   RecaptchaModule, RecaptchaFormsModule, RECAPTCHA_SETTINGS, RecaptchaSettings,
   RECAPTCHA_LANGUAGE
 } from 'ng-recaptcha';
+import { EmailConfirmationComponent } from './auth/email-confirmation/email-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {
     DashboardComponent,
     StartupComponent,
     AuthScreenComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    EmailConfirmationComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,0 +1,6 @@
+<div class="content">
+    <p *ngIf="loading">Waiting confirmation</p>
+    <mat-error *ngIf="errMsg" class="err">{{errMsg}}</mat-error>
+    <hr>
+    <button mat-button (click)="redirectToSignUp()">Go to Sign Up</button>
+</div>

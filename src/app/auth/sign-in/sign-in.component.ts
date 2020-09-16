@@ -14,7 +14,9 @@ export class SignInComponent implements OnInit, OnDestroy {
   minPasswordLength = 8;
   hidePassword = true;
   error: string = null;
+  succMsg: string = null;
   errorMsg: Subscription;
+  successMsg: Subscription;
 
   @ViewChild('captchaRef') captchaRef: any;
 
@@ -51,10 +53,12 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.errorMsg = this.authService.errMsg.subscribe(errMsg => this.error = errMsg);
+    this.successMsg = this.authService.succMsg.subscribe(succMsg => this.succMsg = succMsg);
   };
 
   ngOnDestroy(): void {
     this.errorMsg.unsubscribe();
+    this.successMsg.unsubscribe();
   }
 
   onSubmit() {

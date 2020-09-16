@@ -13,6 +13,7 @@ export class AuthService {
   private authentcated = new BehaviorSubject<boolean>(false);
   private authUser = new BehaviorSubject<any>(null);
   errMsg = new BehaviorSubject<string>(null);
+  succMsg = new BehaviorSubject<string>(null);
 
   get isAuthentcated() {
     return this.authentcated.asObservable();
@@ -57,6 +58,10 @@ export class AuthService {
           return data;
         })
       );
+  }
+
+  confirmEmail(email: string, hash: string): Observable<any> {
+    return this.http.post(`http://localhost:8080/api/auth/email-confirmation/${email}/${hash}`, {}, { observe: 'response' });
   }
 
   signUp(user: User): Observable<any> {

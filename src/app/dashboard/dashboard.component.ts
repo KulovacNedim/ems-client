@@ -1,20 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './../services/auth.service';
-import { Router } from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+
+import { MediaMatcher } from '@angular/cdk/layout';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+  ngOnInit() {}
 
-  constructor(private authService: AuthService, private router: Router) { }
+  mobileQuery: MediaQueryList;
 
-  ngOnInit() {
+  private _mobileQueryListener: () => void;
+
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
-  onLogout(){
-    this.authService.logout();
+  ngOnDestroy(): void {
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
-
 }

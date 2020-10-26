@@ -1,3 +1,14 @@
-<mat-toolbar color="primary">
-  <button mat-button (click)="onLogout()">Logout</button>
-</mat-toolbar>
+<div class="container" [class.is-mobile]="mobileQuery.matches">
+  <app-app-bar [sidenav]="sidenav" [isMobile]="mobileQuery.matches"></app-app-bar>
+
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav [opened]="!mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <app-left-menu></app-left-menu>
+      </mat-nav-list>
+    </mat-sidenav>
+
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,42 @@
+.sidenav_container {
+  /* min-width: 90px; */
+  /* height: calc(100vh - 80px); */
+  background-color: transparent;
+}
+
+.container {
+  height: 100%;
+}
+
+mat-expansion-panel {
+  border-radius: 0;
+}
+
+mat-expansion-panel-header {
+  padding: 0;
+}
+
+.text {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.chevron {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.subcontainer {
+  /* ensures right expension panel width when sidenav is in min mode */
+  width: 0px;
+}
+
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.test {
+  width: 65px;
+}

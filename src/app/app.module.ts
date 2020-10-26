@@ -21,10 +21,16 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { AuthService } from './services/auth.service';
 
 import {
-  RecaptchaModule, RecaptchaFormsModule, RECAPTCHA_SETTINGS, RecaptchaSettings,
-  RECAPTCHA_LANGUAGE
+  RecaptchaModule,
+  RecaptchaFormsModule,
+  RECAPTCHA_SETTINGS,
+  RecaptchaSettings,
+  RECAPTCHA_LANGUAGE,
 } from 'ng-recaptcha';
 import { EmailConfirmationComponent } from './auth/email-confirmation/email-confirmation.component';
+import { AppBarComponent } from './dashboard/app-bar/app-bar.component';
+import { LeftMenuComponent } from './dashboard/left-menu/left-menu.component';
+import { SidenavService } from './services/sidenav.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,9 @@ import { EmailConfirmationComponent } from './auth/email-confirmation/email-conf
     StartupComponent,
     AuthScreenComponent,
     NotFoundComponent,
-    EmailConfirmationComponent
+    EmailConfirmationComponent,
+    AppBarComponent,
+    LeftMenuComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -47,24 +55,28 @@ import { EmailConfirmationComponent } from './auth/email-confirmation/email-conf
     RecaptchaModule,
     RecaptchaFormsModule,
   ],
-  providers: [AuthService,
+  providers: [
+    AuthService,
     AuthGuard,
     AlreadyAuthGuard,
+    SidenavService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
+      multi: true,
     },
     {
       provide: RECAPTCHA_SETTINGS,
-      useValue: { siteKey: '6Lcvn8cZAAAAAJfOWmk4M1trV-MH56grl5iaE635', size: 'invisible' } as RecaptchaSettings,
+      useValue: {
+        siteKey: '6Lcvn8cZAAAAAJfOWmk4M1trV-MH56grl5iaE635',
+        size: 'invisible',
+      } as RecaptchaSettings,
     },
     {
       provide: RECAPTCHA_LANGUAGE,
       useValue: 'hr',
-
-    }
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

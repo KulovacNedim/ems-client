@@ -1,0 +1,49 @@
+<div class="sidenav_container" [@onSideNavChange]="sidenavOpened ? 'open' : 'close'">
+  <div fxLayout="column" fxLayoutGap="10px" class="container">
+    <mat-nav-list>
+      <mat-accordion displayMode="flat">
+        <div *ngFor="let navItem of navItems">
+
+          <!-- use a simple div for an item that has no children -->
+          <div class="nav-head" *ngIf="navItem.pages.length === 0">
+            <a class="nav-link" [routerLink]="navItem.link" routerLinkActive="selected">
+              <mat-list-item>
+                <mat-icon inline mat-list-icon>{{navItem?.icon}}</mat-icon>
+                <span [@animateText]="linkText ? 'show' : 'hide'" class="text">{{ navItem?.name }} </span>
+              </mat-list-item>
+            </a>
+          </div>
+
+          <!-- use expansion panel for heading item with sub page links -->
+          <mat-expansion-panel *ngIf="navItem.pages.length > 0" class="mat-elevation-z0" hideToggle
+            (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header class="nav-head" [collapsedHeight]="'50px'" [expandedHeight]="'50px'">
+              <mat-list-item>
+                <mat-icon inline mat-list-icon>{{navItem?.icon}}</mat-icon>
+                <span [@animateText]="linkText ? 'show' : 'hide'" class="text">{{ navItem?.name }} </span>
+                <div class="chevron">
+                  <mat-icon *ngIf="sidenavOpened" mat-list-icon>{{panelOpenState ? 'expand_less' : 'expand_more'}}
+                  </mat-icon>
+                </div>
+              </mat-list-item>
+            </mat-expansion-panel-header>
+
+            <div>
+              <!-- loop through all sub pages inside the expansion panel content -->
+              <div *ngFor="let navPage of navItem.pages" class="nav-item" class="subcontainer">
+                <a class="nav-link" [routerLink]="navItem.link" routerLinkActive="selected">
+                  <mat-list-item>
+                    <mat-icon inline mat-list-icon>
+                      {{navPage?.icon}}
+                    </mat-icon>
+                    <span [@animateText]="linkText ? 'show' : 'hide'" class="text">{{ navPage?.title }} </span>
+                  </mat-list-item>
+                </a>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </mat-accordion>
+    </mat-nav-list>
+  </div>
+</div>

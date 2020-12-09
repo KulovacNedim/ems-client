@@ -12,30 +12,34 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { EmailConfirmationComponent } from '../auth/email-confirmation/email-confirmation.component';
 
 const appRoutes: Routes = [
-    { path: '', component: StartupComponent },
-    {
-        path: 'auth', component: AuthScreenComponent,
-        canActivate: [AlreadyAuthGuard],
-        canActivateChild: [AlreadyAuthGuard],
-        children: [
-            { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-            { path: 'sign-up', component: SignUpComponent },
-            { path: 'sign-in', component: SignInComponent },
-            { path: 'email-confirmation/:email/:hash', component: EmailConfirmationComponent }
-        ]
-    },
-    { path: 'not-found', component: NotFoundComponent },
-    {
-        path: 'dashboard', component: DashboardComponent,
-        canActivate: [AuthGuard]
-    },
-    { path: '**', redirectTo: 'not-found' }
+  { path: '', component: StartupComponent },
+  {
+    path: 'auth',
+    component: AuthScreenComponent,
+    canActivate: [AlreadyAuthGuard],
+    canActivateChild: [AlreadyAuthGuard],
+    children: [
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: 'sign-up', component: SignUpComponent },
+      { path: 'sign-in', component: SignInComponent },
+      {
+        path: 'email-confirmation/:email/:hash',
+        component: EmailConfirmationComponent,
+      },
+    ],
+  },
+  { path: 'not-found', component: NotFoundComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    children: [{ path: 'test', component: NotFoundComponent }],
+  },
+  { path: '**', redirectTo: 'not-found' },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-
-}
+export class AppRoutingModule {}

@@ -27,13 +27,13 @@ export const onMainContentChange = trigger('onMainContentChange', [
   state(
     'close',
     style({
-      'margin-left': '62px',
+      'margin-left': '70px',
     })
   ),
   state(
     'open',
     style({
-      'margin-left': '200px',
+      'margin-left': '220px',
     })
   ),
   transition('close => open', animate('250ms ease-in')),

@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private authentcated = new BehaviorSubject<boolean>(false);
@@ -19,10 +19,10 @@ export class AuthService {
     return this.authentcated.asObservable();
   }
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) {}
 
   autoLogin() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (!token) {
       this.router.navigate(['/auth/sign-in']);
       return;
@@ -31,25 +31,28 @@ export class AuthService {
   }
 
   getAuthenticatedUserData() {
-    return this.http.get('http://localhost:8080/api/auth/me')
-      .pipe(
-        map(user => {
-          if (user) {
-            this.authentcated.next(true);
-            this.authUser.next(user);
-          }
-          return user;
-        }),
-        catchError((error: HttpErrorResponse) => {
-          this.errMsg.next("Login session expired. Please sign in your account.");
-          this.removeToken();
-          this.router.navigate(["/auth/sign-in"]);
-          return throwError(error);
-        }))
+    return this.http.get('http://localhost:8080/api/auth/me').pipe(
+      map((user) => {
+        if (user) {
+          this.authentcated.next(true);
+          this.authUser.next(user);
+        }
+        return user;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.errMsg.next('Login session expired. Please sign in your account.');
+        this.removeToken();
+        this.router.navigate(['/auth/sign-in']);
+        return throwError(error);
+      })
+    );
   }
 
   signIn(user: User): Observable<any> {
-    return this.http.post('http://localhost:8080/api/auth/login', JSON.stringify(user), { observe: 'response' })
+    return this.http
+      .post('http://localhost:8080/api/auth/login', JSON.stringify(user), {
+        observe: 'response',
+      })
       .pipe(
         map((data: any) => {
           const token = data.headers.get('Authorization');
@@ -61,11 +64,17 @@ export class AuthService {
   }
 
   confirmEmail(email: string, hash: string): Observable<any> {
-    return this.http.post(`http://localhost:8080/api/auth/email-confirmation/${email}/${hash}`, {}, { observe: 'response' });
+    return this.http.post(
+      `http://localhost:8080/api/auth/email-confirmation/${email}/${hash}`,
+      {},
+      { observe: 'response' }
+    );
   }
 
   signUp(user: User): Observable<any> {
-    return this.http.post('http://localhost:8080/api/auth/signup', user, { observe: 'response' });
+    return this.http.post('http://localhost:8080/api/auth/signup', user, {
+      observe: 'response',
+    });
   }
 
   logout() {
@@ -84,6 +93,6 @@ export class AuthService {
   }
 
   public removeToken(): void {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
   }
 }

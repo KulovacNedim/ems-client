@@ -10,6 +10,7 @@ import { SignUpComponent } from '../auth/sign-up/sign-up.component';
 import { SignInComponent } from '../auth/sign-in/sign-in.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { EmailConfirmationComponent } from '../auth/email-confirmation/email-confirmation.component';
+import { RoleNotSetComponent } from '../role-not-set/role-not-set.component';
 
 const appRoutes: Routes = [
   { path: '', component: StartupComponent },
@@ -33,7 +34,7 @@ const appRoutes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
-    children: [{ path: 'test', component: NotFoundComponent }],
+    children: [{ path: 'role-not-set', component: RoleNotSetComponent }],
   },
   { path: '**', redirectTo: 'not-found' },
 ];

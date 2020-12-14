@@ -19,3 +19,13 @@
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
   flex: 1;
 }
+
+mat-sidenav-content {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 98%;
+  margin-top: 10px;
+}

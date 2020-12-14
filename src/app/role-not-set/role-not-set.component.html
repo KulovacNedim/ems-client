@@ -1,1 +1,146 @@
-<p>role-not-set works!</p>
+<mat-card>
+  <mat-card-title>Explanation</mat-card-title>
+  <mat-card-content>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna
+      aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+      sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna
+      aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+      sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card style="margin-top: 15px;">
+  <form [formGroup]="initDataForm">
+    <div fxLayout="row" fxLayout.xs="column" fxFlex>
+      <div fxFlex ngClass.sm="margin-right" ngClass.md="margin-right" ngClass.lg="margin-right">
+        <mat-card-title>Parant's data</mat-card-title>
+        <mat-card-content>
+
+          <div fxLayout="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex>
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="First Name" formControlName="parentFirstName" required>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Last Name" formControlName="parentLastName" required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxFlex>
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Unique Citizens Identity Number" formControlName="parentCitizenID"
+                    required>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="DOB - update" formControlName="parentDOB" required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxFlex>
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="City" formControlName="city" required>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Street" formControlName="street" required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxFlex>
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Phone" formControlName="city" required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxFlex>
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Employer" formControlName="employer" required>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Job Title" formControlName="jobTitle" required>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+        </mat-card-content>
+      </div>
+      <div fxFlex ngClass.sm="margin-left" ngClass.md="margin-left" ngClass.lg="margin-left">
+        <mat-card-title>Student's data</mat-card-title>
+        <mat-card-content>
+
+          <div fxLayout="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex>
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="First Name" formControlName="studentFirstName" required>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Last Name" formControlName="studentLastName" required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxFlex>
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Unique Citizens Identity Number" formControlName="studentCitizenID"
+                    required>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="DOB - update" formControlName="studentDOB" required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxFlex>
+              <div fxFlex>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Persons that can take student" formControlName="city" required>
+                </mat-form-field>
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+        </mat-card-content>
+      </div>
+    </div>
+  </form>
+</mat-card>

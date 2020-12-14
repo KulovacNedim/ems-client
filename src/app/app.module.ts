@@ -32,6 +32,7 @@ import { AppBarComponent } from './dashboard/app-bar/app-bar.component';
 import { LeftMenuComponent } from './dashboard/left-menu/left-menu.component';
 import { SidenavService } from './services/sidenav.service';
 import { RoleNotSetComponent } from './role-not-set/role-not-set.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { RoleNotSetComponent } from './role-not-set/role-not-set.component';
     HttpClientModule,
     RecaptchaModule,
     RecaptchaFormsModule,
+    FlexLayoutModule,
   ],
   providers: [
     AuthService,

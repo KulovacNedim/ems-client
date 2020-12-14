@@ -1,0 +1,25 @@
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-parent-column {
+  /* margin-right: 5px; */
+  flex: 1;
+}
+
+.form-student-column {
+  flex: 1;
+}
+
+.margin-right {
+  margin-right: 5px;
+}
+
+.margin-left {
+  margin-left: 5px;
+}
+
+.full-width-input {
+  width: 95%;
+}

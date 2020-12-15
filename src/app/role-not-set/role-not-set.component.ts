@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-
-const DIRECTIONS = ['row', 'row-reverse', 'column', 'column-reverse'];
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-role-not-set',
   templateUrl: './role-not-set.component.html',
   styleUrls: ['./role-not-set.component.css'],
 })
-export class RoleNotSetComponent implements OnInit {
+export class RoleNotSetComponent {
   initDataForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -60,6 +64,13 @@ export class RoleNotSetComponent implements OnInit {
           // Validators.minLength(this.minPasswordLength),
         ]),
       ],
+      phones: new FormArray([
+        new FormGroup({
+          phoneType: new FormControl(null, Validators.required),
+          phoneOwner: new FormControl(null, Validators.required),
+          phoneNumber: new FormControl(null, Validators.required),
+        }),
+      ]),
       employer: [
         null,
         Validators.compose([
@@ -109,7 +120,23 @@ export class RoleNotSetComponent implements OnInit {
   get f() {
     return this.initDataForm.controls;
   }
-  onSubmit() {}
 
-  ngOnInit(): void {}
+  phoneTypes = [
+    { value: 'personal', viewValue: 'Personal' },
+    { value: 'business', viewValue: 'Business' },
+    { value: 'employer', viewValue: 'Employer' },
+  ];
+
+  onAddPhone() {
+    const fGroup = new FormGroup({
+      phoneType: new FormControl('employer', Validators.required),
+      phoneOwner: new FormControl(null, Validators.required),
+      phoneNumber: new FormControl('061', Validators.required),
+    });
+    (<FormArray>this.initDataForm.get('phones')).push(fGroup);
+  }
+
+  onSubmit() {
+    console.log(this.initDataForm.value);
+  }
 }

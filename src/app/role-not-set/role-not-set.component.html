@@ -17,7 +17,7 @@
 </mat-card>
 
 <mat-card style="margin-top: 15px;">
-  <form [formGroup]="initDataForm">
+  <form [formGroup]="initDataForm" (ngSubmit)="onSubmit()">
     <div fxLayout="row" fxLayout.xs="column" fxFlex>
       <div fxFlex ngClass.sm="margin-right" ngClass.md="margin-right" ngClass.lg="margin-right">
         <mat-card-title>Parant's data</mat-card-title>
@@ -67,24 +67,42 @@
               </div>
             </div>
 
-            <div fxLayout="row" fxLayout.xs="column" fxFlex>
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Phone" formControlName="city" required>
-                </mat-form-field>
+            <div formArrayName="phones" fxFlex>
+              <div *ngFor="let group of initDataForm.get('phones')['controls']; let
+                  i=index" [formGroupName]="i" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <mat-select placeholder="Phone type" formControlName="phoneType" required>
+                      <mat-option *ngFor="let phone of phoneTypes" [value]="phone.value"> {{phone.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Phone Owner Person" formControlName="phoneOwner" required>
+                  </mat-form-field>
+                </div>
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
+            <small class="mat-small" (click)="onAddPhone()" style="cursor: pointer; color: cornflowerblue;">Add new
+              phone number</small>
 
             <div fxLayout="row" fxLayout.xs="column" fxFlex>
               <div fxFlex>
                 <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Employer" formControlName="employer" required>
+                  <input matInput placeholder="Employer (Optional)" formControlName="employer">
                 </mat-form-field>
               </div>
 
               <div fxFlex>
                 <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Job Title" formControlName="jobTitle" required>
+                  <input matInput placeholder="Job Title (Optional)" formControlName="jobTitle">
                 </mat-form-field>
               </div>
             </div>
@@ -140,6 +158,7 @@
           </div>
 
         </mat-card-content>
+        <button type="submit">Save</button>
       </div>
     </div>
   </form>

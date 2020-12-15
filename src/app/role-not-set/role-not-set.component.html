@@ -23,87 +23,134 @@
         <mat-card-title>Parant's data</mat-card-title>
         <mat-card-content>
 
-          <div fxLayout="column">
-            <div fxLayout="row" fxLayout.xs="column" fxFlex>
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="First Name" formControlName="parentFirstName" required>
-                </mat-form-field>
-              </div>
-
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Last Name" formControlName="parentLastName" required>
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div fxLayout="row" fxLayout.xs="column" fxFlex>
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Unique Citizens Identity Number" formControlName="parentCitizenID"
-                    required>
-                </mat-form-field>
-              </div>
-
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="DOB - update" formControlName="parentDOB" required>
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div fxLayout="row" fxLayout.xs="column" fxFlex>
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="City" formControlName="city" required>
-                </mat-form-field>
-              </div>
-
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Street" formControlName="street" required>
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div formArrayName="phones" fxFlex>
-              <div *ngFor="let group of initDataForm.get('phones')['controls']; let
-                  i=index" [formGroupName]="i" fxLayout="row" fxLayout.xs="column">
+          <div>
+            <div fxLayout="column" formGroupName="parentData">
+              <div fxLayout="row" fxLayout.xs="column" fxFlex>
                 <div fxFlex>
                   <mat-form-field class="full-width-input">
-                    <mat-select placeholder="Phone type" formControlName="phoneType" required>
-                      <mat-option *ngFor="let phone of phoneTypes" [value]="phone.value"> {{phone.viewValue}}
+                    <input matInput placeholder="First Name" formControlName="firstName" required>
+                    <mat-error *ngIf="(initDataForm.get('parentData.firstName').invalid && initDataForm.get('parentData.firstName').touched) || 
+                    initDataForm.get('parentData.firstName').dirty">
+                      <small *ngIf="initDataForm.get('parentData.firstName').errors?.required" class="text-danger">Field
+                        required</small>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Last Name" formControlName="lastName" required>
+                    <mat-error *ngIf="(initDataForm.get('parentData.lastName').invalid && initDataForm.get('parentData.lastName').touched) || 
+                    initDataForm.get('parentData.lastName').dirty">
+                      <small *ngIf="initDataForm.get('parentData.lastName').errors?.required" class="text-danger">Field
+                        required</small>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayout.xs="column" fxFlex>
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Unique Citizens Identity Number" formControlName="citizenID" required>
+                    <mat-error *ngIf="(initDataForm.get('parentData.citizenID').invalid && initDataForm.get('parentData.citizenID').touched) || 
+                    initDataForm.get('parentData.citizenID').dirty">
+                      <small *ngIf="initDataForm.get('parentData.citizenID').errors?.required" class="text-danger">Field
+                        required</small>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <mat-label>Date of birth</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dob" required>
+                    <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="(initDataForm.get('parentData.dob').invalid && initDataForm.get('parentData.dob').touched) || 
+                    initDataForm.get('parentData.dob').dirty">
+                      <small *ngIf="initDataForm.get('parentData.dob').errors?.required" class="text-danger">Field
+                        required</small>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayout.xs="column" fxFlex>
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <input matInput placeholder="City" formControlName="city" required>
+                    <mat-error *ngIf="(initDataForm.get('parentData.city').invalid && initDataForm.get('parentData.city').touched) || 
+                    initDataForm.get('parentData.city').dirty">
+                      <small *ngIf="initDataForm.get('parentData.city').errors?.required" class="text-danger">Field
+                        required</small>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Street" formControlName="street" required>
+                    <mat-error *ngIf="(initDataForm.get('parentData.street').invalid && initDataForm.get('parentData.street').touched) || 
+                    initDataForm.get('parentData.street').dirty">
+                      <small *ngIf="initDataForm.get('parentData.street').errors?.required" class="text-danger">Field
+                        required</small>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div formArrayName="phones" fxFlex>
+                <div *ngFor="let group of initDataForm.get('parentData.phones')['controls']; let
+                    i=index" [formGroupName]="i" fxLayout="row" fxLayout.xs="column">
+                  <div fxFlex>
+                    <mat-form-field class="full-width-input">
+                      <mat-select placeholder="Phone type" formControlName="phoneType" required>
+                        <mat-option *ngFor="let phone of phoneTypes" [value]="phone.value"> {{phone.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex>
+                    <mat-form-field class="full-width-input">
+                      <input matInput placeholder="Phone Owner Person" formControlName="phoneOwner" required>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex>
+                    <mat-form-field class="full-width-input">
+                      <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <small class="mat-small" (click)="onAddPhone()" style="cursor: pointer; color: cornflowerblue;">Add new
+                phone number</small>
+
+              <div fxLayout="row" fxLayout.xs="column" fxFlex>
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Employer (Optional)" formControlName="employer">
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex>
+                  <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Job Title (Optional)" formControlName="jobTitle">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayout.xs="column" fxFlex>
+                <div fxFlex>
+
+                  <mat-form-field class="full-width-input">
+                    <mat-select placeholder="Role you are requesting" formControlName="requestedRole" required>
+                      <mat-option *ngFor="let role of roles" [value]="role"> {{role}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div fxFlex>
-                  <mat-form-field class="full-width-input">
-                    <input matInput placeholder="Phone Owner Person" formControlName="phoneOwner" required>
-                  </mat-form-field>
-                </div>
-                <div fxFlex>
-                  <mat-form-field class="full-width-input">
-                    <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <small class="mat-small" (click)="onAddPhone()" style="cursor: pointer; color: cornflowerblue;">Add new
-              phone number</small>
-
-            <div fxLayout="row" fxLayout.xs="column" fxFlex>
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Employer (Optional)" formControlName="employer">
-                </mat-form-field>
-              </div>
-
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Job Title (Optional)" formControlName="jobTitle">
-                </mat-form-field>
               </div>
             </div>
           </div>
@@ -112,53 +159,50 @@
       </div>
       <div fxFlex ngClass.sm="margin-left" ngClass.md="margin-left" ngClass.lg="margin-left">
         <mat-card-title>Student's data</mat-card-title>
-        <mat-card-content>
+        <mat-card-content style="height: 100%; ">
 
-          <div fxLayout="column">
-            <div fxLayout="row" fxLayout.xs="column" fxFlex>
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="First Name" formControlName="studentFirstName" required>
-                </mat-form-field>
-              </div>
+          <div fxLayout="column" style="height: 100%;">
+            <div>
+              <div fxLayout="column" formGroupName="studentData">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex>
+                  <div fxFlex>
+                    <mat-form-field class="full-width-input">
+                      <input matInput placeholder="First Name" formControlName="firstName" required>
+                    </mat-form-field>
+                  </div>
 
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Last Name" formControlName="studentLastName" required>
-                </mat-form-field>
+                  <div fxFlex>
+                    <mat-form-field class="full-width-input">
+                      <input matInput placeholder="Last Name" formControlName="lastName" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.xs="column" fxFlex>
+                  <div fxFlex>
+                    <mat-form-field class="full-width-input">
+                      <input matInput placeholder="Unique Citizens Identity Number" formControlName="citizenID"
+                        required>
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex>
+                    <mat-form-field class="full-width-input">
+                      <input matInput placeholder="DOB - update" formControlName="dob" required>
+                    </mat-form-field>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div fxLayout="row" fxLayout.xs="column" fxFlex>
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Unique Citizens Identity Number" formControlName="studentCitizenID"
-                    required>
-                </mat-form-field>
-              </div>
-
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="DOB - update" formControlName="studentDOB" required>
-                </mat-form-field>
+            <div style="margin-bottom: 68px;" fxLayout="row" fxFlex>
+              <div fxFlex fxLayoutAlign="center end">
+                <button type=" submit" mat-stroked-button color="primary" style="padding: 0 50px;">Submit</button>
               </div>
             </div>
-
-            <div fxLayout="row" fxLayout.xs="column" fxFlex>
-              <div fxFlex>
-                <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Persons that can take student" formControlName="city" required>
-                </mat-form-field>
-              </div>
-
-
-            </div>
-
-
           </div>
-
         </mat-card-content>
-        <button type="submit">Save</button>
+
       </div>
     </div>
   </form>

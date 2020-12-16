@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 })
 export class RoleNotSetComponent {
   initDataForm: FormGroup;
+  notValidFormWarning = false;
 
   constructor(private fb: FormBuilder) {
     this.initDataForm = this.createSignupForm();
@@ -72,8 +73,7 @@ export class RoleNotSetComponent {
   }
 
   onSubmit() {
-    console.log(this.initDataForm.controls['parentData']);
-    console.log(this.initDataForm);
+    if (!this.initDataForm.valid) this.notValidFormWarning = true;
     console.log(this.initDataForm.value);
   }
 }

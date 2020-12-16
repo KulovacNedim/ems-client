@@ -1,13 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-role-not-set',
@@ -17,6 +9,12 @@ import { Subscription } from 'rxjs';
 export class RoleNotSetComponent {
   initDataForm: FormGroup;
   notValidFormWarning = false;
+  phoneTypes = [
+    { value: 'personal', viewValue: 'Personal' },
+    { value: 'business', viewValue: 'Business' },
+    { value: 'employer', viewValue: 'Employer' },
+  ];
+  roles = ['PARENT'];
 
   constructor(private fb: FormBuilder) {
     this.initDataForm = this.createSignupForm();
@@ -24,50 +22,38 @@ export class RoleNotSetComponent {
 
   createSignupForm(): FormGroup {
     return this.fb.group({
-      parentData: new FormGroup({
-        firstName: new FormControl(null, Validators.required),
-        lastName: new FormControl(null, Validators.required),
-        citizenID: new FormControl(null, Validators.required),
-        dob: new FormControl(null, Validators.required),
-        city: new FormControl(null, Validators.required),
-        street: new FormControl(null, Validators.required),
-        phones: new FormArray([
-          new FormGroup({
-            phoneType: new FormControl(null, Validators.required),
-            phoneOwner: new FormControl(null, Validators.required),
-            phoneNumber: new FormControl(null, Validators.required),
+      parentData: this.fb.group({
+        firstName: [null, Validators.required],
+        lastName: [null, Validators.required],
+        citizenID: [null, Validators.required],
+        dob: [null, Validators.required],
+        city: [null, Validators.required],
+        street: [null, Validators.required],
+        phones: this.fb.array([
+          this.fb.group({
+            phoneType: [null, Validators.required],
+            phoneOwner: [null, Validators.required],
+            phoneNumber: [null, Validators.required],
           }),
         ]),
-        employer: new FormControl(null),
-        jobTitle: new FormControl(null),
-        requestedRole: new FormControl(null, Validators.required),
+        employer: [null],
+        jobTitle: [null],
+        requestedRole: [null, Validators.required],
       }),
-      studentData: new FormGroup({
-        firstName: new FormControl(null, Validators.required),
-        lastName: new FormControl(null, Validators.required),
-        citizenID: new FormControl(null, Validators.required),
-        dob: new FormControl(null, Validators.required),
+      studentData: this.fb.group({
+        firstName: [null, Validators.required],
+        lastName: [null, Validators.required],
+        citizenID: [null, Validators.required],
+        dob: [null, Validators.required],
       }),
     });
   }
 
-  get f() {
-    return this.initDataForm.controls;
-  }
-
-  phoneTypes = [
-    { value: 'personal', viewValue: 'Personal' },
-    { value: 'business', viewValue: 'Business' },
-    { value: 'employer', viewValue: 'Employer' },
-  ];
-
-  roles = ['PARENT'];
-
   onAddPhone() {
-    const fGroup = new FormGroup({
-      phoneType: new FormControl(null, Validators.required),
-      phoneOwner: new FormControl(null, Validators.required),
-      phoneNumber: new FormControl(null, Validators.required),
+    const fGroup = this.fb.group({
+      phoneType: [null, Validators.required],
+      phoneOwner: [null, Validators.required],
+      phoneNumber: [null, Validators.required],
     });
     (<FormArray>this.initDataForm.get('parentData.phones')).push(fGroup);
   }

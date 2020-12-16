@@ -23,3 +23,10 @@
 .full-width-input {
   width: calc(100% - 10px);
 }
+
+.invisible {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}

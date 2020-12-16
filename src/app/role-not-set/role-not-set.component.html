@@ -105,6 +105,13 @@
                 <div *ngFor="let group of initDataForm.get('parentData.phones')['controls']; let
                     i=index" [formGroupName]="i" fxLayout="row" fxLayout.xs="column">
                   <div fxFlex>
+                    <div fxFlex *ngIf="i != 0">
+                      <mat-icon aria-hidden="false" aria-label="Remove icon" color="warn" (click)="onPhoneRemove(i)"
+                        style="margin-right: 10px; margin-top: 10px; cursor: pointer;">
+                        remove_circle
+                      </mat-icon>
+                    </div>
+
                     <mat-form-field class="full-width-input">
                       <mat-select placeholder="Phone type" formControlName="phoneType" required>
                         <mat-option *ngFor="let phone of phoneTypes" [value]="phone.value"> {{phone.viewValue}}
@@ -119,6 +126,7 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+
                   <div fxFlex>
                     <mat-form-field class="full-width-input">
                       <input matInput placeholder="Phone Owner Person" formControlName="phoneOwner" required

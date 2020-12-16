@@ -58,8 +58,13 @@ export class RoleNotSetComponent {
     (<FormArray>this.initDataForm.get('parentData.phones')).push(fGroup);
   }
 
+  onPhoneRemove(index: number) {
+    (<FormArray>this.initDataForm.get('parentData.phones')).removeAt(index);
+  }
+
   onSubmit() {
     if (!this.initDataForm.valid) this.notValidFormWarning = true;
+    else this.notValidFormWarning = false;
     console.log(this.initDataForm.value);
   }
 }

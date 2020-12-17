@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-role-not-set',
@@ -9,6 +10,9 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RoleNotSetComponent {
   initDataForm: FormGroup;
   notValidFormWarning = false;
+  requestSubmitted = false;
+  buttonDisabled = false;
+  serverError = false;
   phoneTypes = [
     { value: 'personal', viewValue: 'Personal' },
     { value: 'business', viewValue: 'Business' },
@@ -16,7 +20,7 @@ export class RoleNotSetComponent {
   ];
   roles = ['PARENT'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.initDataForm = this.createSignupForm();
   }
 
@@ -63,8 +67,21 @@ export class RoleNotSetComponent {
   }
 
   onSubmit() {
-    if (!this.initDataForm.valid) this.notValidFormWarning = true;
-    else this.notValidFormWarning = false;
-    console.log(this.initDataForm.value);
+    if (!this.initDataForm.valid) {
+      this.notValidFormWarning = true;
+      return;
+    } else {
+      this.notValidFormWarning = false;
+    }
+
+    const data = this.initDataForm.value;
+    data.parentData.email = 'email@test.com';
+    this.authService.submitRequestForRole(data).subscribe(
+      () => {
+        this.requestSubmitted = true;
+        this.buttonDisabled = true;
+      },
+      () => (this.serverError = true)
+    );
   }
 }

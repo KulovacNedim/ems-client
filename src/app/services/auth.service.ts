@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { User } from '../auth/user';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 
@@ -94,5 +98,18 @@ export class AuthService {
 
   public removeToken(): void {
     localStorage.removeItem('token');
+  }
+
+  public submitRequestForRole(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post(
+      'http://localhost:8080/api/role-request',
+      JSON.stringify(data),
+      httpOptions
+    );
   }
 }

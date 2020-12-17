@@ -18,7 +18,7 @@
 
 <mat-card style="margin-top: 15px;">
   <form [formGroup]="initDataForm" (ngSubmit)="onSubmit()">
-    <div fxLayout="row" fxLayout.xs="column" fxFlex>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
       <div fxFlex ngClass.sm="margin-right" ngClass.md="margin-right" ngClass.lg="margin-right">
         <mat-card-title>Parant's data</mat-card-title>
         <mat-card-content>
@@ -242,9 +242,22 @@
                     </mat-form-field>
                   </div>
 
-                  <div fxFlex>
+                  <!-- <div fxFlex>
                     <mat-form-field class="full-width-input">
                       <input matInput placeholder="DOB - update" formControlName="dob" required autocomplete="off">
+                      <mat-error *ngIf="(initDataForm.get('studentData.dob').invalid && initDataForm.get('studentData.dob').touched) || 
+                      initDataForm.get('studentData.dob').dirty">
+                        <small *ngIf="initDataForm.get('studentData.dob').errors?.required" class="text-danger">Field
+                          required</small>
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+                  <div fxFlex>
+                    <mat-form-field class="full-width-input">
+                      <mat-label>Date of birth</mat-label>
+                      <input matInput [matDatepicker]="pickerST" formControlName="dob" required autocomplete="off">
+                      <mat-datepicker-toggle matPrefix [for]="pickerST"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerST></mat-datepicker>
                       <mat-error *ngIf="(initDataForm.get('studentData.dob').invalid && initDataForm.get('studentData.dob').touched) || 
                       initDataForm.get('studentData.dob').dirty">
                         <small *ngIf="initDataForm.get('studentData.dob').errors?.required" class="text-danger">Field
@@ -259,12 +272,18 @@
             <div style="margin-bottom: 68px;" fxLayout="row" fxFlex>
               <div fxFlex fxLayoutAlign="center end">
                 <div fxFlex fxLayout='column'>
-                  <button type=" submit" mat-stroked-button color="primary" style="padding: 0 50px;">Submit</button>
+                  <button type=" submit" mat-stroked-button color="primary" style="padding: 0 50px;"
+                    [disabled]="buttonDisabled">Submit</button>
                   <mat-error class="mat-body" *ngIf="notValidFormWarning" style="margin-top: 20px;">
                     The form is NOT
                     submitted. Please enter all
                     required
                     information and try again.</mat-error>
+                  <mat-error class="mat-body" *ngIf="serverError" style="margin-top: 20px;">
+                    Server encountered error. Please try later again.</mat-error>
+                  <p class="mat-small" *ngIf="requestSubmitted" style="margin-top: 20px;" style="color: green;">
+                    The request is successfully submitted. After reviewing the request, we will send you a
+                    notification via email you are registered with.</p>
                 </div>
               </div>
             </div>

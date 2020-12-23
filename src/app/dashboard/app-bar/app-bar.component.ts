@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { Message } from '@stomp/stompjs';
 
 import { SidenavService } from '../../services/sidenav.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Role, UserResponse } from 'src/app/auth/user';
 
 @Component({
   selector: 'app-app-bar',
@@ -16,11 +18,12 @@ export class AppBarComponent implements OnInit {
   @Input() sidenav: MatSidenav;
   @Input() isMobile: boolean;
   topicSubscription: Subscription;
+  authUser: Subscription;
 
   private sidenavSub: Subscription;
   public sidenavOpened: boolean = false;
   public linkText: boolean = false;
-
+  roles = [];
   ngOnInit(): void {
     // get notifications
     const httpOptions = {
@@ -35,12 +38,22 @@ export class AppBarComponent implements OnInit {
         (err) => console.log(err)
       );
     // subscribe for new notifications
-    this.topicSubscription = this.rxStompService
-      .watch('/topic/notifications')
-      .subscribe((message: Message) => {
-        console.log(message.body);
-      });
+    this.authUser = this.authService.authUser.subscribe(
+      (user: UserResponse) => {
+        this.roles = user?.roles.filter(
+          (role: Role) =>
+            role.roleName === 'TEACHER' || role.roleName === 'ADMIN'
+        );
 
+        if (this.roles?.length > 0) {
+          this.topicSubscription = this.rxStompService
+            .watch('/topic/notifications')
+            .subscribe((message: Message) => {
+              console.log(message.body);
+            });
+        }
+      }
+    );
     this.sidenavSub = this._sidenavService.isSidenavOpend.subscribe(
       (navOpened) => (this.sidenavOpened = navOpened)
     );
@@ -65,7 +78,8 @@ export class AppBarComponent implements OnInit {
   constructor(
     private _sidenavService: SidenavService,
     private http: HttpClient,
-    private rxStompService: RxStompService
+    private rxStompService: RxStompService,
+    private authService: AuthService
   ) {
     this.rxStompService.configure({
       connectHeaders: {

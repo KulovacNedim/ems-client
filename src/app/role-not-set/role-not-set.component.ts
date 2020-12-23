@@ -101,11 +101,11 @@ export class RoleNotSetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.topicSubscription = this.rxStompService
-      .watch('/topic/news')
-      .subscribe((message: Message) => {
-        console.log(message.body);
-      });
+    // this.topicSubscription = this.rxStompService
+    //   .watch('/topic/news')
+    //   .subscribe((message: Message) => {
+    //     console.log(message.body);
+    //   });
   }
 
   onSendMessage() {

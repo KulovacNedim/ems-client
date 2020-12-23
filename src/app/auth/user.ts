@@ -23,3 +23,8 @@ interface NotEnabledReason {
   timestamp: string;
   valid: boolean;
 }
+
+export interface Role {
+  role_id: string;
+  roleName: String;
+}

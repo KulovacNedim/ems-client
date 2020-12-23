@@ -15,7 +15,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class AuthService {
   private authentcated = new BehaviorSubject<boolean>(false);
-  private authUser = new BehaviorSubject<any>(null);
+  authUser = new BehaviorSubject<any>(null);
   errMsg = new BehaviorSubject<string>(null);
   succMsg = new BehaviorSubject<string>(null);
 

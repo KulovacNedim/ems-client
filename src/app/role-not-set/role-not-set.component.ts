@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RxStompService } from '@stomp/ng2-stompjs';
 import { AuthService } from '../services/auth.service';
+import { Message } from '@stomp/stompjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-role-not-set',
   templateUrl: './role-not-set.component.html',
   styleUrls: ['./role-not-set.component.css'],
 })
-export class RoleNotSetComponent {
+export class RoleNotSetComponent implements OnInit, OnDestroy {
   initDataForm: FormGroup;
   notValidFormWarning = false;
   requestSubmitted = false;
@@ -20,8 +23,20 @@ export class RoleNotSetComponent {
   ];
   roles = ['PARENT'];
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  private topicSubscription: Subscription;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private rxStompService: RxStompService
+  ) {
     this.initDataForm = this.createSignupForm();
+
+    this.rxStompService.configure({
+      connectHeaders: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
   }
 
   createSignupForm(): FormGroup {
@@ -83,5 +98,27 @@ export class RoleNotSetComponent {
       },
       () => (this.serverError = true)
     );
+  }
+
+  ngOnInit() {
+    // this.topicSubscription = this.rxStompService
+    //   .watch('/topic/news')
+    //   .subscribe((message: Message) => {
+    //     console.log(message.body);
+    //   });
+  }
+
+  onSendMessage() {
+    this.rxStompService.publish({
+      destination: '/app/news',
+      body: JSON.stringify({
+        name: 'Malik',
+        age: 3,
+      }),
+    });
+  }
+
+  ngOnDestroy() {
+    this.topicSubscription.unsubscribe();
   }
 }

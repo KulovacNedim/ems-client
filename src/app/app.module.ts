@@ -34,6 +34,12 @@ import { LeftMenuComponent } from './dashboard/left-menu/left-menu.component';
 import { SidenavService } from './services/sidenav.service';
 import { RoleNotSetComponent } from './role-not-set/role-not-set.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {
+  InjectableRxStompConfig,
+  RxStompService,
+  rxStompServiceFactory,
+} from '@stomp/ng2-stompjs';
+import { myRxStompConfig } from './my-rx-stomp.config';
 
 @NgModule({
   declarations: [
@@ -81,6 +87,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     {
       provide: RECAPTCHA_LANGUAGE,
       useValue: 'hr',
+    },
+    {
+      provide: InjectableRxStompConfig,
+      useValue: myRxStompConfig,
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig],
     },
   ],
   bootstrap: [AppComponent],

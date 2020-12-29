@@ -30,3 +30,10 @@
   height: 0;
   width: 0;
 }
+
+.next-student {
+  margin-top: 7px;
+  border-radius: 4px;
+  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}

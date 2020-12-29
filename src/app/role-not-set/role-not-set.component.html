@@ -204,74 +204,90 @@
 
           <div fxLayout="column" style="height: 100%;">
             <div>
-              <div fxLayout="column" formGroupName="studentData">
-                <div fxLayout="row" fxLayout.xs="column" fxFlex>
-                  <div fxFlex>
-                    <mat-form-field class="full-width-input">
-                      <input matInput placeholder="First Name" formControlName="firstName" required autocomplete="off">
-                      <mat-error *ngIf="(initDataForm.get('studentData.firstName').invalid && initDataForm.get('studentData.firstName').touched) || 
-                      initDataForm.get('studentData.firstName').dirty">
-                        <small *ngIf="initDataForm.get('studentData.firstName').errors?.required"
-                          class="text-danger">Field
-                          required</small>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+              <div formArrayName="studentData" fxFlex>
+                <div *ngFor="let group of initDataForm.get('studentData')['controls']; let
+                    i=index" [formGroupName]="i" fxLayout="row" fxLayout.xs="column">
+                  <div fxFlex [ngClass]="{'next-student': i != 0 }">
+                    <div *ngIf="i != 0">
+                      <div fxFlex fxLayoutAlign="space-around center">
+                        <mat-icon aria-hidden="false" aria-label="Remove icon" color="warn" (click)="onStudentRemove(i)"
+                          style="margin-left: 10px; margin-right: 10px; cursor: pointer;">
+                          remove_circle
+                        </mat-icon>
+                      </div>
+                    </div>
+                    <div fxFlex fxlayout="column">
+                      <div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxLayout.md="column" fxFlex>
+                          <div fxFlex>
+                            <mat-form-field class="full-width-input">
+                              <input matInput placeholder="First Name" formControlName="firstName" required
+                                autocomplete="off">
+                              <mat-error *ngIf="(initDataForm.get('studentData')['controls'][i].get('firstName').invalid && initDataForm.get('studentData')['controls'][i].get('firstName').touched) || 
+                              initDataForm.get('studentData')['controls'][i].get('firstName').dirty">
+                                <small
+                                  *ngIf="initDataForm.get('studentData')['controls'][i].get('firstName').errors?.required"
+                                  class="text-danger">Field
+                                  required</small>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div fxFlex>
+                            <mat-form-field class="full-width-input">
+                              <input matInput placeholder="Last Name" formControlName="lastName" required
+                                autocomplete="off">
+                              <mat-error *ngIf="(initDataForm.get('studentData')['controls'][i].get('lastName').invalid && initDataForm.get('studentData')['controls'][i].get('lastName').touched) || 
+                              initDataForm.get('studentData')['controls'][i].get('lastName').dirty">
+                                <small
+                                  *ngIf="initDataForm.get('studentData')['controls'][i].get('lastName').errors?.required"
+                                  class="text-danger">Field
+                                  required</small>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxLayout.md="column" fxFlex>
+                          <div fxFlex>
+                            <mat-form-field class="full-width-input">
+                              <input matInput placeholder="Unique Citizens Identity Number" formControlName="citizenID"
+                                required autocomplete="off">
+                              <mat-error *ngIf="(initDataForm.get('studentData')['controls'][i].get('citizenID').invalid && initDataForm.get('studentData')['controls'][i].get('citizenID').touched) || 
+                                initDataForm.get('studentData')['controls'][i].get('citizenID').dirty">
+                                <small
+                                  *ngIf="initDataForm.get('studentData')['controls'][i].get('citizenID').errors?.required"
+                                  class="text-danger">Field
+                                  required</small>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div fxFlex>
+                            <mat-form-field class="full-width-input">
+                              <mat-label>Date of birth</mat-label>
+                              <input matInput [matDatepicker]="pickerST" formControlName="dob" required
+                                autocomplete="off">
+                              <mat-datepicker-toggle matPrefix [for]="pickerST"></mat-datepicker-toggle>
+                              <mat-datepicker #pickerST></mat-datepicker>
+                              <mat-error *ngIf="(initDataForm.get('studentData')['controls'][i].get('dob').invalid && initDataForm.get('studentData')['controls'][i].get('dob').touched) || 
+                                initDataForm.get('studentData')['controls'][i].get('dob').dirty">
+                                <small
+                                  *ngIf="initDataForm.get('studentData')['controls'][i].get('dob').errors?.required"
+                                  class="text-danger">Field
+                                  required</small>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                  <div fxFlex>
-                    <mat-form-field class="full-width-input">
-                      <input matInput placeholder="Last Name" formControlName="lastName" required autocomplete="off">
-                      <mat-error *ngIf="(initDataForm.get('studentData.lastName').invalid && initDataForm.get('studentData.lastName').touched) || 
-                      initDataForm.get('studentData.lastName').dirty">
-                        <small *ngIf="initDataForm.get('studentData.lastName').errors?.required"
-                          class="text-danger">Field
-                          required</small>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-
-                <div fxLayout="row" fxLayout.xs="column" fxFlex>
-                  <div fxFlex>
-                    <mat-form-field class="full-width-input">
-                      <input matInput placeholder="Unique Citizens Identity Number" formControlName="citizenID" required
-                        autocomplete="off">
-                      <mat-error *ngIf="(initDataForm.get('studentData.citizenID').invalid && initDataForm.get('studentData.citizenID').touched) || 
-                      initDataForm.get('studentData.citizenID').dirty">
-                        <small *ngIf="initDataForm.get('studentData.citizenID').errors?.required"
-                          class="text-danger">Field
-                          required</small>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- <div fxFlex>
-                    <mat-form-field class="full-width-input">
-                      <input matInput placeholder="DOB - update" formControlName="dob" required autocomplete="off">
-                      <mat-error *ngIf="(initDataForm.get('studentData.dob').invalid && initDataForm.get('studentData.dob').touched) || 
-                      initDataForm.get('studentData.dob').dirty">
-                        <small *ngIf="initDataForm.get('studentData.dob').errors?.required" class="text-danger">Field
-                          required</small>
-                      </mat-error>
-                    </mat-form-field>
-                  </div> -->
-                  <div fxFlex>
-                    <mat-form-field class="full-width-input">
-                      <mat-label>Date of birth</mat-label>
-                      <input matInput [matDatepicker]="pickerST" formControlName="dob" required autocomplete="off">
-                      <mat-datepicker-toggle matPrefix [for]="pickerST"></mat-datepicker-toggle>
-                      <mat-datepicker #pickerST></mat-datepicker>
-                      <mat-error *ngIf="(initDataForm.get('studentData.dob').invalid && initDataForm.get('studentData.dob').touched) || 
-                      initDataForm.get('studentData.dob').dirty">
-                        <small *ngIf="initDataForm.get('studentData.dob').errors?.required" class="text-danger">Field
-                          required</small>
-                      </mat-error>
-                    </mat-form-field>
                   </div>
                 </div>
               </div>
             </div>
-
+            <small class="mat-small" (click)="onStudent()" style="cursor: pointer; color: cornflowerblue;">Add new
+              student</small>
             <div style="margin-bottom: 68px;" fxLayout="row" fxFlex>
               <div fxFlex fxLayoutAlign="center end">
                 <div fxFlex fxLayout='column'>

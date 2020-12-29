@@ -59,12 +59,14 @@ export class RoleNotSetComponent implements OnInit, OnDestroy {
         jobTitle: [null],
         requestedRole: [null, Validators.required],
       }),
-      studentData: this.fb.group({
-        firstName: [null, Validators.required],
-        lastName: [null, Validators.required],
-        citizenID: [null, Validators.required],
-        dob: [null, Validators.required],
-      }),
+      studentData: this.fb.array([
+        this.fb.group({
+          firstName: [null, Validators.required],
+          lastName: [null, Validators.required],
+          citizenID: [null, Validators.required],
+          dob: [null, Validators.required],
+        }),
+      ]),
     });
   }
 
@@ -79,6 +81,20 @@ export class RoleNotSetComponent implements OnInit, OnDestroy {
 
   onPhoneRemove(index: number) {
     (<FormArray>this.initDataForm.get('parentData.phones')).removeAt(index);
+  }
+
+  onStudent() {
+    const fGroup = this.fb.group({
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required],
+      citizenID: [null, Validators.required],
+      dob: [null, Validators.required],
+    });
+    (<FormArray>this.initDataForm.get('studentData')).push(fGroup);
+  }
+
+  onStudentRemove(index: number) {
+    (<FormArray>this.initDataForm.get('studentData')).removeAt(index);
   }
 
   onSubmit() {

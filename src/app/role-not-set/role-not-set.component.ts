@@ -3,7 +3,6 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { AuthService } from '../services/auth.service';
 import { Message } from '@stomp/stompjs';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-role-not-set',
@@ -23,7 +22,7 @@ export class RoleNotSetComponent implements OnInit, OnDestroy {
   ];
   roles = ['PARENT'];
 
-  private topicSubscription: Subscription;
+  // private topicSubscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -135,6 +134,6 @@ export class RoleNotSetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.topicSubscription.unsubscribe();
+    // this.topicSubscription.unsubscribe();
   }
 }

@@ -5,17 +5,3 @@
 .app-name {
   margin-left: 8px;
 }
-
-.menu {
-  min-width: 200px;
-}
-
-.example-header-image {
-  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
-  background-size: cover;
-}
-
-::ng-deep.mat-menu-panel {
-  max-width: 300px !important;
-  border-radius: 0% !important;
-}

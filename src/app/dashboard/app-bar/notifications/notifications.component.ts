@@ -52,12 +52,9 @@ export class NotificationsComponent implements OnInit {
     };
     this.http
       .get('http://localhost:8080/api/my-notifications', httpOptions)
-      .subscribe(
-        (succ: Notification[]) => {
-          this.store.dispatch(new AddNotifications(succ));
-        },
-        (err) => console.log(err)
-      );
+      .subscribe((notifications: Notification[]) => {
+        this.store.dispatch(new AddNotifications(notifications));
+      });
     // subscribe for new notifications
     this.authUser = this.authService.authUser.subscribe(
       (user: UserResponse) => {

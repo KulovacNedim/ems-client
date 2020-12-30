@@ -15,6 +15,8 @@ import { StartupComponent } from './auth/startup/startup.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { StoreModule } from '@ngrx/store';
+import { notificationsReducer } from './dashboard/app-bar/notifications/store/notifications.reducer';
 
 import { AuthGuard } from './services/auth-guard.service';
 import { AlreadyAuthGuard } from './services/already-auth-gard.service';
@@ -40,6 +42,8 @@ import {
   rxStompServiceFactory,
 } from '@stomp/ng2-stompjs';
 import { myRxStompConfig } from './my-rx-stomp.config';
+import { from } from 'rxjs';
+import { NotificationsComponent } from './dashboard/app-bar/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +58,7 @@ import { myRxStompConfig } from './my-rx-stomp.config';
     AppBarComponent,
     LeftMenuComponent,
     RoleNotSetComponent,
+    NotificationsComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -63,6 +68,9 @@ import { myRxStompConfig } from './my-rx-stomp.config';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    StoreModule.forRoot({
+      notifications: notificationsReducer,
+    }),
     RecaptchaModule,
     RecaptchaFormsModule,
     FlexLayoutModule,

@@ -1,0 +1,177 @@
+<!-- MESSAGES -->
+<button mat-icon-button [matMenuTriggerFor]="messagesMenu" aria-label="Example icon-button with a menu">
+  <mat-icon matBadge="1" matBadgeColor="warn" matBadgeSize="small">email</mat-icon>
+</button>
+<mat-menu #messagesMenu="matMenu" yPosition="above" xPosition="before">
+
+  <div>
+    <div style="display: flex; justify-content: center; align-items: center; height: 35px;">
+      <h4 class="mat-h4" style="margin:0px ; color: rgb(102, 100, 100);">MESSAGES</h4>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
+      <div style="width:70px">
+        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+      </div>
+      <div style="min-width:calc(100% - 60px);">
+        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
+          <span class=" mat-body-strong">Kulovac Nedim</span>
+          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
+        </div>
+      </div>
+    </div>
+    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
+      <div style="width:70px">
+        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+      </div>
+      <div style="min-width:calc(100% - 60px);">
+        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
+          <span class=" mat-body-strong">Kulovac Nedim</span>
+          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
+        </div>
+      </div>
+    </div>
+    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
+      <div style="width:70px">
+        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+      </div>
+      <div style="min-width:calc(100% - 60px);">
+        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
+          <span class=" mat-body-strong">Kulovac Nedim</span>
+          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-menu>
+<!-- END OF MESSAGES -->
+
+<!-- NOTIFICATIONS -->
+<button mat-icon-button [matMenuTriggerFor]="notificationsMenu" aria-label="Example icon-button with a menu">
+  <mat-icon matBadge="5" matBadgeColor="warn" matBadgeSize="small">notifications</mat-icon>
+</button>
+<mat-menu #notificationsMenu="matMenu" yPosition="above" xPosition="before">
+
+  <div>
+    <div style="display: flex; justify-content: center; align-items: center; height: 35px;">
+      <h4 class="mat-h4" style="margin:0px ; color: rgb(102, 100, 100);">NOTIFICATONS</h4>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
+      <div style="width:70px">
+        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+      </div>
+      <div style="min-width:calc(100% - 60px);">
+        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
+          <span class=" mat-body-strong">Kulovac Nedim</span>
+          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
+        </div>
+      </div>
+    </div>
+    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
+      <div style="width:70px">
+        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+      </div>
+      <div style="min-width:calc(100% - 60px);">
+        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
+          <span class=" mat-body-strong">Kulovac Nedim</span>
+          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
+        </div>
+      </div>
+    </div>
+    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
+      <div style="width:70px">
+        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+      </div>
+      <div style="min-width:calc(100% - 60px);">
+        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
+          <span class=" mat-body-strong">Kulovac Nedim</span>
+          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
+        </div>
+      </div>
+    </div>
+
+    <ul *ngFor="let notification of (notifications | async).notifications">
+      {{notification.id}}
+    </ul>
+  </div>
+</mat-menu>
+<!-- END OF NOTIFICATIONS -->
+
+<!-- TASKS -->
+<button mat-icon-button [matMenuTriggerFor]="tasksMenu" aria-label="Example icon-button with a menu">
+  <mat-icon matBadge="1" matBadgeColor="warn" matBadgeSize="small">check_circle</mat-icon>
+</button>
+<mat-menu #tasksMenu="matMenu" yPosition="above" xPosition="before">
+
+  <div>
+    <div style="display: flex; justify-content: center; align-items: center; height: 35px;">
+      <h4 class="mat-h4" style="margin:0px ; color: rgb(102, 100, 100);">TASKS</h4>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
+      <div style="width:70px">
+        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+      </div>
+      <div style="min-width:calc(100% - 60px);">
+        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
+          <span class=" mat-body-strong">Kulovac Nedim</span>
+          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
+        </div>
+      </div>
+    </div>
+    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
+      <div style="width:70px">
+        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+      </div>
+      <div style="min-width:calc(100% - 60px);">
+        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
+          <span class=" mat-body-strong">Kulovac Nedim</span>
+          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
+        </div>
+      </div>
+    </div>
+    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
+      <div style="width:70px">
+        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+      </div>
+      <div style="min-width:calc(100% - 60px);">
+        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
+          <span class=" mat-body-strong">Kulovac Nedim</span>
+          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-menu>
+<!-- END OF TASKS -->
+
+<!-- USER SECTION -->
+<button mat-icon-button [matMenuTriggerFor]="personMenu" aria-label="Example icon-button with a menu">
+  <mat-icon>person</mat-icon>
+</button>
+<mat-menu #personMenu="matMenu" yPosition="above" xPosition="before">
+  <div style="display: flex; justify-content: center; align-items: center; height: 35px;">
+    <h4 class="mat-h4" style="margin:0px ; color: rgb(102, 100, 100);">USER ACTIONS</h4>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="menu">
+    <button mat-menu-item>
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      <span>Settings</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+  </div>
+</mat-menu>
+<!-- END OF USER SECTION -->

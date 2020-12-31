@@ -1,10 +1,10 @@
-export interface User {
+export interface LoginPayload {
   email: string;
   password: string;
   reCaptchaToken: string;
 }
 
-export interface UserResponse {
+export interface User {
   id: string;
   email: string;
   firstName: string;

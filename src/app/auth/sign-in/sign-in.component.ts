@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { UserResponse } from '../user';
+import { User } from '../user';
 
 @Component({
   selector: 'app-sign-in',
@@ -72,7 +72,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       this.authService.signIn(this.signInForm.value).subscribe(
         () => {
           this.authService.getAuthenticatedUserData().subscribe((user) => {
-            const userResponse = <UserResponse>user;
+            const userResponse = <User>user;
             const roleNotSet = !!userResponse.notEnabledReasons.filter(
               (r) => r.reason === 'MISSING_ROLE'
             )[0];

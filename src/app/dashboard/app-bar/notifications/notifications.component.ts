@@ -12,7 +12,8 @@ import {
   AddNotification,
 } from 'src/app/dashboard/app-bar/notifications/store/notifications.actions';
 import { AuthService } from 'src/app/services/auth.service';
-import { Role, UserResponse } from 'src/app/auth/user';
+import { Role, User } from 'src/app/auth/user';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notifications',
@@ -56,8 +57,14 @@ export class NotificationsComponent implements OnInit {
         this.store.dispatch(new AddNotifications(notifications));
       });
     // subscribe for new notifications
-    this.authUser = this.authService.authUser.subscribe(
-      (user: UserResponse) => {
+    this.authUser = this.store
+      .select('auth')
+      .pipe(
+        map((authState) => {
+          return authState.authenticatedUser;
+        })
+      )
+      .subscribe((user: User) => {
         this.roles = user?.roles.filter(
           (role: Role) =>
             role.roleName === 'TEACHER' || role.roleName === 'ADMIN'
@@ -71,7 +78,6 @@ export class NotificationsComponent implements OnInit {
               this.store.dispatch(new AddNotification(msg));
             });
         }
-      }
-    );
+      });
   }
 }

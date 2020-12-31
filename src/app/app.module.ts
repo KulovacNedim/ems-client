@@ -42,8 +42,10 @@ import {
   rxStompServiceFactory,
 } from '@stomp/ng2-stompjs';
 import { myRxStompConfig } from './my-rx-stomp.config';
-import { from } from 'rxjs';
 import { NotificationsComponent } from './dashboard/app-bar/notifications/notifications.component';
+
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment'; // Angular CLI environment
 
 @NgModule({
   declarations: [
@@ -69,6 +71,11 @@ import { NotificationsComponent } from './dashboard/app-bar/notifications/notifi
     FormsModule,
     HttpClientModule,
     StoreModule.forRoot(fromApp.appReducer),
+    // Instrumentation must be imported after importing StoreModule (config is optional)
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
     RecaptchaModule,
     RecaptchaFormsModule,
     FlexLayoutModule,

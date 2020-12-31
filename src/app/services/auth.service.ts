@@ -9,13 +9,16 @@ import {
 } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from '../auth/auth/auth.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private authentcated = new BehaviorSubject<boolean>(false);
-  authUser = new BehaviorSubject<any>(null);
+  // authUser = new BehaviorSubject<any>(null);
   errMsg = new BehaviorSubject<string>(null);
   succMsg = new BehaviorSubject<string>(null);
 
@@ -23,7 +26,11 @@ export class AuthService {
     return this.authentcated.asObservable();
   }
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private store: Store<fromApp.AppState>
+  ) {}
 
   autoLogin() {
     const token = localStorage.getItem('token');
@@ -36,10 +43,11 @@ export class AuthService {
 
   getAuthenticatedUserData() {
     return this.http.get('http://localhost:8080/api/auth/me').pipe(
-      map((user) => {
+      map((user: User) => {
         if (user) {
           this.authentcated.next(true);
-          this.authUser.next(user);
+          // this.authUser.next(user);
+          this.store.dispatch(new AuthActions.SetAuthenticatedUser(user));
         }
         return user;
       }),

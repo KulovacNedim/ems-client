@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { UserResponse } from '../auth/user';
+import { User } from '../auth/user';
 
 import { AuthService } from './auth.service';
 
@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
             return false;
           }
           this.authService.getAuthenticatedUserData().subscribe((user) => {
-            const userResponse = <UserResponse>user;
+            const userResponse = <User>user;
             const roleNotSet = !!userResponse.notEnabledReasons.filter(
               (r) => r.reason === 'MISSING_ROLE'
             )[0];

@@ -1,6 +1,6 @@
 <!-- MESSAGES -->
 <button mat-icon-button [matMenuTriggerFor]="messagesMenu" aria-label="Example icon-button with a menu">
-  <mat-icon matBadge="1" matBadgeColor="warn" matBadgeSize="small">email</mat-icon>
+  <mat-icon matBadge="" matBadgeColor="warn" matBadgeSize="small">email</mat-icon>
 </button>
 <mat-menu #messagesMenu="matMenu" yPosition="above" xPosition="before">
 
@@ -49,100 +49,62 @@
 
 <!-- NOTIFICATIONS -->
 <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" aria-label="Example icon-button with a menu">
-  <mat-icon matBadge="5" matBadgeColor="warn" matBadgeSize="small">notifications</mat-icon>
+  <mat-icon [matBadgeHidden]="(notifications | async).notifications.length === 0"
+    matBadge="{{(notifications | async).notifications.length}}" matBadgeColor="warn" matBadgeSize="small">
+    notifications
+  </mat-icon>
 </button>
 <mat-menu #notificationsMenu="matMenu" yPosition="above" xPosition="before">
-
   <div>
     <div style="display: flex; justify-content: center; align-items: center; height: 35px;">
       <h4 class="mat-h4" style="margin:0px ; color: rgb(102, 100, 100);">NOTIFICATONS</h4>
     </div>
     <mat-divider></mat-divider>
-
-    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
-      <div style="width:70px">
-        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
+    <div mat-menu-item class="no_items" *ngIf="(notifications | async).notifications.length === 0">
+      There is no any notification
+    </div>
+    <div mat-menu-item class="menu-item" *ngFor="let notification of (notifications | async).notifications">
+      <div class="avatar-container">
+        <mat-icon aria-hidden="false" aria-label="add_task"
+          style="font-size: 30px; margin-left: 10px; margin-top: -5px;">add_task
+        </mat-icon>
       </div>
-      <div style="min-width:calc(100% - 60px);">
-        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
-          <span class=" mat-body-strong">Kulovac Nedim</span>
-          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
-        </div>
+      <div class="content-conteiner">
+        <span class=" mat-body-strong">{{notification.message}}</span>
+        <span class="mat-small" style="color: gray; " *ngIf="notification.type === 'ROLE_SETUP_REQUEST'">
+          From parent: {{notification.args.parent_first_name}} {{notification.args.parent_last_name}}
+        </span>
       </div>
     </div>
-    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
-      <div style="width:70px">
-        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
-      </div>
-      <div style="min-width:calc(100% - 60px);">
-        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
-          <span class=" mat-body-strong">Kulovac Nedim</span>
-          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
-        </div>
-      </div>
-    </div>
-    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
-      <div style="width:70px">
-        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
-      </div>
-      <div style="min-width:calc(100% - 60px);">
-        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
-          <span class=" mat-body-strong">Kulovac Nedim</span>
-          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
-        </div>
-      </div>
-    </div>
-
-    <ul *ngFor="let notification of (notifications | async).notifications">
-      {{notification.id}}
-    </ul>
   </div>
 </mat-menu>
 <!-- END OF NOTIFICATIONS -->
 
 <!-- TASKS -->
 <button mat-icon-button [matMenuTriggerFor]="tasksMenu" aria-label="Example icon-button with a menu">
-  <mat-icon matBadge="1" matBadgeColor="warn" matBadgeSize="small">check_circle</mat-icon>
+  <mat-icon [matBadgeHidden]="(notifications | async).tasks.length === 0"
+    matBadge="{{(notifications | async).tasks.length}}" matBadgeColor="warn" matBadgeSize="small">
+    check_circle
+  </mat-icon>
 </button>
 <mat-menu #tasksMenu="matMenu" yPosition="above" xPosition="before">
-
   <div>
     <div style="display: flex; justify-content: center; align-items: center; height: 35px;">
       <h4 class="mat-h4" style="margin:0px ; color: rgb(102, 100, 100);">TASKS</h4>
     </div>
     <mat-divider></mat-divider>
-
-    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
-      <div style="width:70px">
-        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
-      </div>
-      <div style="min-width:calc(100% - 60px);">
-        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
-          <span class=" mat-body-strong">Kulovac Nedim</span>
-          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
-        </div>
-      </div>
+    <div mat-menu-item class="no_items" *ngIf="(notifications | async).tasks.length === 0">
+      There is no any tasks
     </div>
-    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
-      <div style="width:70px">
+    <div mat-menu-item class="menu-item" *ngFor="let task of (notifications | async).tasks">
+      <div class="avatar-container">
         <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
       </div>
-      <div style="min-width:calc(100% - 60px);">
-        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
-          <span class=" mat-body-strong">Kulovac Nedim</span>
-          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
-        </div>
-      </div>
-    </div>
-    <div mat-menu-item style="display: flex; justify-content: center; align-items: center; height: 70px;">
-      <div style="width:70px">
-        <div mat-card-avatar class="example-header-image" style="margin: 10px"></div>
-      </div>
-      <div style="min-width:calc(100% - 60px);">
-        <div style=" display: flex; flex-direction: column;margin-left: 10px; margin-right: 10px; overflow: hidden;">
-          <span class=" mat-body-strong">Kulovac Nedim</span>
-          <span class="mat-small" style="color: gray; ">Role setup request -Role setup request -</span>
-        </div>
+      <div class="content-conteiner">
+        <span class=" mat-body-strong">{{task.message}}</span>
+        <span class="mat-small" style="color: gray; " *ngIf="notification.type === 'DUMMY_PLACEHOLDER'">
+          plh
+        </span>
       </div>
     </div>
   </div>

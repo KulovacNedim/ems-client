@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Message } from '@stomp/stompjs';
 
-import * as fromRoleNotSet from './store/notifications.reducer';
+import * as fromApp from '../../../store/app.reducer';
 import { Notification } from '../../../../app/models/notification';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -26,7 +26,7 @@ export class NotificationsComponent implements OnInit {
   roles = [];
 
   constructor(
-    private store: Store<fromRoleNotSet.AppState>,
+    private store: Store<fromApp.AppState>,
     private http: HttpClient,
     private rxStompService: RxStompService,
     private authService: AuthService

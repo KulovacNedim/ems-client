@@ -14,10 +14,10 @@ export interface UserResponse {
   locked: boolean;
   notEnabledReasons: NotEnabledReason[];
   permissions: [];
-  roles: [];
+  roles: Role[];
 }
 
-interface NotEnabledReason {
+export interface NotEnabledReason {
   id: string;
   reason: string;
   timestamp: string;

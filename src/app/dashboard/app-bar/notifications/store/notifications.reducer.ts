@@ -1,10 +1,6 @@
 import * as RoleNotSetActions from './notifications.actions';
 import { Notification } from '../../../../models/notification';
 
-export interface AppState {
-  notifications: State;
-}
-
 export interface State {
   notifications: Notification[];
   tasks: Notification[];

@@ -16,7 +16,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
-import { notificationsReducer } from './dashboard/app-bar/notifications/store/notifications.reducer';
+import * as fromApp from './store/app.reducer';
 
 import { AuthGuard } from './services/auth-guard.service';
 import { AlreadyAuthGuard } from './services/already-auth-gard.service';
@@ -68,9 +68,7 @@ import { NotificationsComponent } from './dashboard/app-bar/notifications/notifi
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({
-      notifications: notificationsReducer,
-    }),
+    StoreModule.forRoot(fromApp.appReducer),
     RecaptchaModule,
     RecaptchaFormsModule,
     FlexLayoutModule,

@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 import { Notification } from '../../../../models/notification';
 
-export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
-export const ADD_NOTIFICATIONS = 'ADD_NOTIFICATIONS';
-export const UPDATE_NOTIFICATION = 'UPDATE_NOTIFICATION';
+export const ADD_NOTIFICATION = '[Notifications] ADD_NOTIFICATION';
+export const ADD_NOTIFICATIONS = '[Notifications] ADD_NOTIFICATIONS';
+export const UPDATE_NOTIFICATION = '[Notifications] UPDATE_NOTIFICATION';
 
 export class AddNotification implements Action {
   readonly type = ADD_NOTIFICATION;

@@ -5,9 +5,38 @@
 
 ::ng-deep.mat-menu-panel {
   max-width: 300px !important;
+  min-width: 240px !important;
   border-radius: 0% !important;
+}
+
+::ng-deep.mat-menu-item {
+  padding: 0px 3px !important;
 }
 
 .menu {
   min-width: 200px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  height: 70px;
+}
+
+.avatar-container {
+  width: 70px;
+}
+
+.content-conteiner {
+  min-width: calc(100% - 60px);
+  display: flex;
+  flex-direction: column;
+  margin-left: 0px;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.no_items {
+  display: flex;
+  justify-content: center;
 }

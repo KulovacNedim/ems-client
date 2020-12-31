@@ -1,10 +1,10 @@
-export interface User {
+export interface LoginPayload {
   email: string;
   password: string;
   reCaptchaToken: string;
 }
 
-export interface UserResponse {
+export interface User {
   id: string;
   email: string;
   firstName: string;
@@ -14,10 +14,10 @@ export interface UserResponse {
   locked: boolean;
   notEnabledReasons: NotEnabledReason[];
   permissions: [];
-  roles: [];
+  roles: Role[];
 }
 
-interface NotEnabledReason {
+export interface NotEnabledReason {
   id: string;
   reason: string;
   timestamp: string;

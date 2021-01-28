@@ -1,4 +1,4 @@
-# EmsClient - School/Kindergarten Managing Application
+# EmsClient - School/Kindergarten Management Software
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 

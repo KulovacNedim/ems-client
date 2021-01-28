@@ -1,4 +1,5 @@
-# EmsClient - School/Kindergarten Management Software
+# EmsClient 
+Client application for School/Kindergarten Management Software. REST API is located [here](https://github.com/KulovacNedim/ems-rest).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
